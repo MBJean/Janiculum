@@ -1,0 +1,39 @@
+{
+  "name": "the-latin-toolkit-api",
+  "private": true,
+  "version": "1.0.0",
+  "description": "An API layer for a variety of Latin learning tools",
+  "main": "config.js",
+  "scripts": {
+    "test": "xo",
+    "lint": "xo",
+    "format": "xo --fix",
+    "start": "node ./bin/start.js",
+    "dev": "nodemon ./bin/start.js",
+    "migrate": "node ./bin/migrate.js",
+    "migrate:create": "migrate create --migrations-dir='./src/migrations'"
+  },
+  "author": "Michael Jean",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "client-sessions": "^0.8.0",
+    "express": "^4.16.4",
+    "helmet": "^3.16.0",
+    "migrate": "^1.6.2",
+    "morgan": "^1.9.1",
+    "pg": "^7.9.0",
+    "sql-template-strings": "^2.2.2",
+    "uuid": "^3.3.2",
+    "xml-query": "^1.5.0",
+    "xml-reader": "^2.4.3",
+    "xml2js": "^0.4.23",
+    "xml2json": "^0.12.0",
+    "xmldom": "^0.2.1",
+    "xmlserializer": "^0.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11",
+    "xo": "^0.24.0"
+  }
+}
