@@ -14,4 +14,16 @@ router.get('/:query', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+  const referenceNumber = req.body.reference_number;
+  if (!referenceNumber) {
+    res.status(422);
+    res.render('error', { error: 'missing reference_number' });
+  };
+  res.status(200);
+  res.json({
+    message: 'success'
+  });
+});
+
 module.exports = router;

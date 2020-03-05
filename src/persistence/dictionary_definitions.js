@@ -3,14 +3,14 @@ const uuid = require('uuid/v4');
 const db = require('./db');
 
 module.exports = {
-  async create(reference_number, level, body) {
+  async create(dictionary_entry_id, reference_number, level, body) {
     if (!reference_number || !level || !body) {
       return null;
     }
     const id = uuid();
     await db.query(sql`
-    INSERT INTO dictionary_definitions (id, reference_number, level, body)
-      VALUES (${id}, ${reference_number}, ${level}, ${body});
+    INSERT INTO dictionary_definitions (id, dictionary_entry_id, reference_number, level, body)
+      VALUES (${id}, ${dictionary_entry_id}, ${reference_number}, ${level}, ${body});
     `);
     return id;
   },
