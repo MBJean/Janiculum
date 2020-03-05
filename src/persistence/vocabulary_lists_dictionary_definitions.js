@@ -8,14 +8,14 @@ module.exports = {
       return null;
     }
     await db.query(sql`
-    INSERT INTO vocabulary_lists_dictionary_entries (vocablary_list_id, dictionary_definition_id)
+    INSERT INTO vocabulary_lists_dictionary_entries (vocabulary_list_id, dictionary_definition_id)
       VALUES (${vocabularyListID}, ${dictionaryDefinitionID});
     `);
     return vocabularyListID + dictionaryDefinitionID;
   },
   async delete(vocabularyListID, dictionaryDefinitionID) {
     await db.query(sql`
-    DELETE FROM vocabulary_lists_organizations WHERE vocablary_list_id = ${vocabularyListID} AND dictionary_definition_id = ${dictionaryDefinitionID};
+    DELETE FROM vocabulary_lists_organizations WHERE vocabulary_list_id = ${vocabularyListID} AND dictionary_definition_id = ${dictionaryDefinitionID};
     `);
   }
 };

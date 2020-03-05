@@ -8,14 +8,14 @@ module.exports = {
       return null;
     }
     await db.query(sql`
-    INSERT INTO vocabulary_lists_users (vocablary_list_id, user_id, admin)
+    INSERT INTO vocabulary_lists_users (vocabulary_list_id, user_id, admin)
       VALUES (${vocabularyListID}, ${userID}, ${admin});
     `);
     return vocabularyListID + userID;
   },
   async delete(vocabularyListID, userID) {
     await db.query(sql`
-    DELETE FROM vocabulary_lists_users WHERE vocablary_list_id = ${vocabularyListID} AND user_id = ${userID};
+    DELETE FROM vocabulary_lists_users WHERE vocabulary_list_id = ${vocabularyListID} AND user_id = ${userID};
     `);
   }
 };
