@@ -16,11 +16,20 @@ app.use(morgan('short'));
 app.use(express.json());
 app.use(
   clientSession({
-    cookieName: 'session',
+    cookieName: 'theLatinToolkitSession',
     secret: SESSION_SECRET,
     duration: 24 * 60 * 60 * 1000
   })
 );
+// app.use((req, res, next) => {
+//   if (req.theLatinToolkitSession.seenyou) {
+//     res.setHeader('X-Seen-You', 'true');
+//   } else {
+//     // setting a property will automatically cause a Set-Cookie response to be sent
+//     req.theLatinToolkitSession.seenyou = true;
+//     res.setHeader('X-Seen-You', 'false');
+//   }
+// });
 app.use(helmet());
 
 app.use(api);
