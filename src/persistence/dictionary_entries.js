@@ -28,7 +28,7 @@ module.exports = {
   search(query) {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT lemma, body FROM dictionary_entries WHERE lemma ILIKE $1 LIMIT 5",
+        "SELECT id, reference_number, lemma, body FROM dictionary_entries WHERE lemma ILIKE $1 LIMIT 5",
         [query + '%'],
         (err, result) => {
           resolve(result.rows);

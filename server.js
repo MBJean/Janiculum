@@ -34,31 +34,51 @@ app.get('/', function (req, res){
 
 
 
-app.get('/test/1/login', function (req, res){
-  req.session.userID = 'c6eb2f92-11d1-4f46-abdf-ad877ed5ce1f';
-  req.session.userEmail = 'test1@test.com';
-  res.redirect('/');
+app.get('/login/:email', function (req, res){
+  const User = require('./src/persistence/users');
+  const newUserEmail = req.params.email;
+  console.log(newUserEmail);
+  const newUserPassword = 'testpassword';
+  User.find(newUserEmail).then(user => {
+    if (user) {
+      req.session.userID = user.id;
+      req.session.userEmail = user.email;
+      res.redirect('/');
+    } else {
+      User.create(newUserEmail, newUserPassword).then(user => {
+        req.session.userID = user.id;
+        req.session.userEmail = user.email;
+        res.redirect('/');
+      });
+    }
+  });
 });
 
-app.get('/test/2/login', function (req, res){
-  req.session.userID = '0a52a286-446f-4efc-b7bb-959f378a955d';
-  req.session.userEmail = 'test2@test.com';
-  res.redirect('/');
-});
-
-app.get('/test/1/init', function (req, res) {
+app.get('/create-vocabulary-list', function (req, res) {
   if (!req.session.userID) {
     res.redirect('/');
   }
   const VocabularyList = require('./src/persistence/vocabulary_lists');
+  const DictionaryEntry = require('./src/persistence/dictionary_entries');
   const VocabularyListDictionaryEntry = require('./src/persistence/vocabulary_lists_dictionary_entries');
-  const id = VocabularyList.create('test vocabulary list', 'test description', req.session.userID)
-  .then(result => {
-    VocabularyListDictionaryEntry.create(result, '35b33d2e-c9f5-411e-8968-b1790d963d67');
-    VocabularyListDictionaryEntry.create(result, '5f5baa2a-713d-4970-81d4-c7a68a0cf787');
-    VocabularyListDictionaryEntry.create(result, '4a897e64-d472-4a65-be53-998ba401daa2');
+  VocabularyList
+    .create('Test Vocabulary List', 'This list is for the first test user.', req.session.userID)
+    .then(vocabularyListID => {
+      Promise.all([
+        DictionaryEntry.search('acervus'),
+        DictionaryEntry.search('aegyptus'),
+        DictionaryEntry.search('annus')
+      ])
+      .then(entryLists => {
+        const vocabularyListDicationaryEntries = entryLists.map(entryList => {
+          VocabularyListDictionaryEntry.create(vocabularyListID, entryList[0].id);
+        })
+        Promise.all(vocabularyListDicationaryEntries).then(result => {
+          res.send(`New vocabulary list created with id: ${vocabularyListID}`);
+        });
+      }
+    );
   });
-  res.send('test 1 init');
 });
 
 app.get('/logout', function (req, res) {
