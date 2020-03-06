@@ -16,6 +16,14 @@ services:
       - .:/app/
       - /app/node_modules
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "8888:8888"
+    command: npm run dev
+    volumes:
+      - .:/node_modules
+
   postgres:
     image: postgres:10.4
     ports:

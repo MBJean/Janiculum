@@ -13,6 +13,18 @@ module.exports = {
     `);
     return vocabularyListID + userID;
   },
+  async find(userID) {
+    const {rows} = await db.query(sql`
+      SELECT
+         id,
+         name,
+         description
+      FROM
+         vocabulary_lists
+      INNER JOIN vocabulary_lists_users ON user_id = ${userID};
+    `);
+    return rows;
+  },
   async delete(vocabularyListID, userID) {
     await db.query(sql`
     DELETE FROM vocabulary_lists_users WHERE vocabulary_list_id = ${vocabularyListID} AND user_id = ${userID};
