@@ -6,10 +6,9 @@ const morgan = require('morgan');
 const clientSession = require('client-sessions');
 const helmet = require('helmet');
 
-const {SESSION_SECRET} = require('./config');
+const { SESSION_SECRET } = require('./config');
 
 const app = express();
-const api = require('./src/api');
 
 app.get('/health', (req, res) => res.sendStatus(200));
 
@@ -23,8 +22,6 @@ app.use(
   })
 );
 app.use(helmet());
-
-app.use(api);
 
 app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
