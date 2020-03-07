@@ -1,4 +1,6 @@
 const express = require('express');
+const graphqlHTTP = require('express-graphql')
+const graphqlSchema = require('./src/graphql/schema.js')
 
 const morgan = require('morgan');
 const clientSession = require('client-sessions');
@@ -23,6 +25,11 @@ app.use(
 app.use(helmet());
 
 app.use(api);
+
+app.use('/graphql', graphqlHTTP({
+  schema: graphqlSchema,
+  graphiql: true
+}))
 
 app.get('/', function (req, res){
   if (req.session.userID) {
