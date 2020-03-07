@@ -8,7 +8,7 @@ const VocabularyListByUser = {
   args: {
     id: { type: GraphQLString }
   },
-  resolve: (source, args, request) => {
+  resolve: (source, { id }, request) => {
     const userID = request.session.userID;
     if (!userID) {
       throw new Error('user not authenticated');

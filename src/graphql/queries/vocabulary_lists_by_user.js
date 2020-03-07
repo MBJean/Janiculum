@@ -5,8 +5,7 @@ const VocabularyListUser = require('../../persistence/vocabulary_lists_users');
 
 const VocabularyListsByUser = {
   type: new GraphQLList(VocabularyListType),
-  args: {},
-  resolve: (source, args, request) => {
+  resolve: (source, {}, request) => {
     const userID = request.session.userID;
     if (!userID) {
       throw new Error('user not authenticated');
