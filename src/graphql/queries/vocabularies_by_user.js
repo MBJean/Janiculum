@@ -1,20 +1,20 @@
 const graphql = require('graphql')
 const { GraphQLList } = graphql
-const VocabularyListType = require('../types/vocabulary_list_type');
-const VocabularyListUser = require('../../persistence/vocabulary_lists_users');
+const VocabularyType = require('../types/vocabulary_type');
+const VocabulariesUsers = require('../../persistence/vocabularies_users');
 const ErrorMessages = require('../../helpers/error-messages');
 
-const VocabularyListsByUser = {
-  type: new GraphQLList(VocabularyListType),
+const VocabulariesByUser = {
+  type: new GraphQLList(VocabularyType),
   resolve: (source, {}, request) => {
     const userID = request.session.userID;
     if (!userID) {
       throw new Error(ErrorMessages.USER_NOT_AUTHENTICATED);
     }
-    return VocabularyListUser.find(userID)
+    return VocabulariesUsers.find(userID)
       .then(res => res)
       .catch(err => err);
   }
 }
 
-module.exports = VocabularyListsByUser
+module.exports = VocabulariesByUser

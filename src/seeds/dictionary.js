@@ -1,7 +1,7 @@
 const DOMParser = require('xmldom').DOMParser;
 const XMLSerializer = require('xmlserializer');
-const DictionaryEntry = require('../persistence/dictionary_entries');
-const DictionaryDefinition = require('../persistence/dictionary_definitions');
+const Entry = require('../persistence/entries');
+const Definition = require('../persistence/definitions');
 
 module.exports = {
   init() {
@@ -14,23 +14,23 @@ module.exports = {
       const entries = doc.getElementsByTagName("entryFree");
       for (let i = 0; i < entries.length; i++) {
         const entry = entries[i];
-        DictionaryEntry.create(
+        Entry.create(
           entry.getAttribute('id'),
           entry.getAttribute('key'),
           XMLSerializer.serializeToString(entry)
         )
-          .then(dictionary_entry_id => {
+          .then(entry_id => {
             process.stdout.write(".");
             const definitions = entry.getElementsByTagName("sense");
             for (let j = 0; j < definitions.length; j++) {
               const definition = definitions[j];
-              const dictionary_definition_id = DictionaryDefinition.create(
-                dictionary_entry_id,
+              const definition_id = Definition.create(
+                entry_id,
                 definition.getAttribute('id'),
                 definition.getAttribute('level'),
                 XMLSerializer.serializeToString(definition)
               )
-                .then(dictionary_definition_id => {
+                .then(definition_id => {
                   process.stdout.write("_");
                 })
                 .catch(error => {

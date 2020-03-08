@@ -9,14 +9,14 @@ module.exports = {
     }
     const id = uuid();
     await db.query(sql`
-    INSERT INTO dictionary_entries (id, reference_number, lemma, body)
+    INSERT INTO entries (id, reference_number, lemma, body)
       VALUES (${id}, ${reference_number}, ${lemma}, ${body});
     `);
     return id;
   },
   async find(id) {
     const {rows} = await db.query(sql`
-    SELECT lemma, body FROM dictionary_entries WHERE id = ${id} LIMIT 1;
+    SELECT lemma, body FROM entries WHERE id = ${id} LIMIT 1;
     `);
 
     return rows.map(entry => ({
@@ -28,7 +28,7 @@ module.exports = {
   search(query) {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT id, reference_number, lemma, body FROM dictionary_entries WHERE lemma ILIKE $1 LIMIT 5",
+        "SELECT id, reference_number, lemma, body FROM entries WHERE lemma ILIKE $1 LIMIT 5",
         [query + '%'],
         (err, result) => {
           resolve(result.rows);
@@ -41,7 +41,7 @@ module.exports = {
   },
   async delete(id) {
     await db.query(sql`
-    DELETE FROM dictionary_entries WHERE id = ${id};
+    DELETE FROM entries WHERE id = ${id};
     `);
   }
 };

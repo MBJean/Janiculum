@@ -1,8 +1,8 @@
 const graphql = require('graphql')
 const { GraphQLObjectType, GraphQLString } = graphql
 
-const VocabularyListType = new GraphQLObjectType({
-  name: 'VocbularyList',
+const VocabularyType = new GraphQLObjectType({
+  name: 'Vocabulary',
   fields: {
     id: {
       type: GraphQLString
@@ -16,4 +16,4 @@ const VocabularyListType = new GraphQLObjectType({
   }
 });
 
-module.exports = VocabularyListType
+module.exports = VocabularyType

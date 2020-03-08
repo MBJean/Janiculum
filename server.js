@@ -35,64 +35,6 @@ app.get('/', function (req, res){
   res.send('You need to login.');
 });
 
-
-
-
-app.get('/login/:email', function (req, res){
-  const User = require('./src/persistence/users');
-  const newUserEmail = req.params.email;
-  console.log(newUserEmail);
-  const newUserPassword = 'testpassword';
-  User.find(newUserEmail).then(user => {
-    if (user) {
-      req.session.userID = user.id;
-      req.session.userEmail = user.email;
-      res.redirect('/');
-    } else {
-      User.create(newUserEmail, newUserPassword).then(user => {
-        req.session.userID = user.id;
-        req.session.userEmail = user.email;
-        res.redirect('/');
-      });
-    }
-  });
-});
-
-app.get('/create-vocabulary-list', function (req, res) {
-  if (!req.session.userID) {
-    res.redirect('/');
-  }
-  const VocabularyList = require('./src/persistence/vocabulary_lists');
-  const DictionaryEntry = require('./src/persistence/dictionary_entries');
-  const VocabularyListDictionaryEntry = require('./src/persistence/vocabulary_lists_dictionary_entries');
-  VocabularyList
-    .create('Test Vocabulary List', 'This list is for the first test user.', req.session.userID)
-    .then(vocabularyListID => {
-      Promise.all([
-        DictionaryEntry.search('acervus'),
-        DictionaryEntry.search('aegyptus'),
-        DictionaryEntry.search('annus')
-      ])
-      .then(entryLists => {
-        const vocabularyListDicationaryEntries = entryLists.map(entryList => {
-          VocabularyListDictionaryEntry.create(vocabularyListID, entryList[0].id);
-        })
-        Promise.all(vocabularyListDicationaryEntries).then(result => {
-          res.send(`New vocabulary list created with id: ${vocabularyListID}`);
-        });
-      }
-    );
-  });
-});
-
-app.get('/logout', function (req, res) {
-  req.session.reset();
-  res.redirect('/');
-});
-
-
-
-
 let server;
 module.exports = {
   start(port) {

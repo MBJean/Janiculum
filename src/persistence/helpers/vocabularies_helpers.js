@@ -8,7 +8,7 @@ module.exports = {
         id
       FROM
         users
-      INNER JOIN vocabulary_lists_users ON vocabulary_list_id = ${userID} AND user_id = id;
+      INNER JOIN vocabularies_users ON vocabulary_id = ${userID} AND user_id = id;
     `);
     const { rows: hasOrganizationAccess } = await db.query(sql`
       SELECT
@@ -16,7 +16,7 @@ module.exports = {
       FROM
         users
       INNER JOIN organizations_users ON user_id = id
-      INNER JOIN vocabulary_lists_organizations ON vocabulary_list_id = ${userID};
+      INNER JOIN vocabularies_organizations ON vocabulary_id = ${userID};
     `);
     return hasListAccess || hasOrganizationAccess;
   }

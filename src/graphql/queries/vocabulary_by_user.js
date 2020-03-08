@@ -1,11 +1,11 @@
 const graphql = require('graphql')
 const { GraphQLList, GraphQLString } = graphql
-const DictionaryEntryType = require('../types/dictionary_entry_type');
-const VocabularyListDictionaryEntry = require('../../persistence/vocabulary_lists_dictionary_entries');
+const EntryType = require('../types/entry_type');
+const VocabulariesEntries = require('../../persistence/vocabularies_entries');
 const ErrorMessages = require('../../helpers/error-messages');
 
-const VocabularyListByUser = {
-  type: new GraphQLList(DictionaryEntryType),
+const VocabularyByUser = {
+  type: new GraphQLList(EntryType),
   args: {
     id: { type: GraphQLString }
   },
@@ -14,10 +14,10 @@ const VocabularyListByUser = {
     if (!userID) {
       throw new Error(ErrorMessages.USER_NOT_AUTHENTICATED);
     }
-    return VocabularyListDictionaryEntry.find(id, userID)
+    return VocabulariesEntries.find(id, userID)
       .then(res => res)
       .catch(err => err);
   }
 }
 
-module.exports = VocabularyListByUser
+module.exports = VocabularyByUser

@@ -9,12 +9,12 @@ module.exports = {
     }
     const id = uuid();
     const {rows} = await db.query(sql`
-    INSERT INTO vocabulary_lists (id, name, description)
+    INSERT INTO vocabularies (id, name, description)
       VALUES (${id}, ${name}, ${description})
       RETURNING id, name, description;
     `);
     await db.query(sql`
-    INSERT INTO vocabulary_lists_users (vocabulary_list_id, user_id, admin)
+    INSERT INTO vocabularies_users (vocabulary_id, user_id, admin)
       VALUES (${id}, ${userID}, true);
     `);
     return rows[0];
@@ -25,18 +25,18 @@ module.exports = {
     }
     const id = uuid();
     await db.query(sql`
-    INSERT INTO vocabulary_lists (id, name, description)
+    INSERT INTO vocabularies (id, name, description)
       VALUES (${id}, ${name}, ${description});
     `);
     await db.query(sql`
-    INSERT INTO vocabulary_lists_organizations (vocabulary_list_id, organization_id)
+    INSERT INTO vocabularies_organizations (vocabulary_id, organization_id)
       VALUES (${id}, ${organizationID}, true);
     `);
     return id;
   },
   async delete(id) {
     await db.query(sql`
-    DELETE FROM vocabulary_lists WHERE id = ${id};
+    DELETE FROM vocabularies WHERE id = ${id};
     `);
   }
 };

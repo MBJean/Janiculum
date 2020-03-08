@@ -1,8 +1,8 @@
 const graphql = require('graphql')
 const { GraphQLObjectType, GraphQLString } = graphql
 
-const DictionaryEntryType = new GraphQLObjectType({
-  name: 'DictionaryEntry',
+const EntryType = new GraphQLObjectType({
+  name: 'Entry',
   fields: {
     id: {
       type: GraphQLString
@@ -19,4 +19,4 @@ const DictionaryEntryType = new GraphQLObjectType({
   }
 });
 
-module.exports = DictionaryEntryType
+module.exports = EntryType

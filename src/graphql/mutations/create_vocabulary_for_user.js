@@ -1,12 +1,12 @@
 const graphql = require('graphql')
 const { GraphQLString } = graphql
 const setSessionData = require('../../helpers/set-session-data')
-const VocabularyListType = require('../types/vocabulary_list_type')
-const VocabularyList = require('../../persistence/vocabulary_lists')
+const VocabularyType = require('../types/vocabulary_type')
+const Vocabulary = require('../../persistence/vocabularies')
 const ErrorMessages = require('../../helpers/error-messages');
 
-const createVocabularyListForUser = {
-  type: VocabularyListType,
+const createVocabularyForUser = {
+  type: VocabularyType,
   args: {
     name: { type: GraphQLString },
     description: { type: GraphQLString }
@@ -18,10 +18,10 @@ const createVocabularyListForUser = {
     if (!request.session.userID) {
       throw new Error(ErrorMessages.USER_NOT_AUTHENTICATED);
     }
-    return VocabularyList.createForUser(name, description, request.session.userID)
+    return Vocabulary.createForUser(name, description, request.session.userID)
       .then(id => id)
       .catch(err => err);
   }
 };
 
-module.exports = createVocabularyListForUser
+module.exports = createVocabularyForUser
