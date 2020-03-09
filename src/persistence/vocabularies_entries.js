@@ -11,7 +11,9 @@ module.exports = {
       INSERT INTO vocabularies_entries (vocabulary_id, entry_id)
         VALUES (${vocabularyID}, ${entryID});
     `);
-    return vocabularyID + entryID;
+    return {
+      id: vocabularyID + entryID
+    };
   },
   async find(vocabularyID, userID) {
     const { rows } = await db.query(sql`
@@ -22,8 +24,18 @@ module.exports = {
         body
       FROM
          entries
-      INNER JOIN vocabularies_users ON vocabularies_users.vocabulary_id = ${vocabularyID} AND user_id = ${userID}
-      INNER JOIN vocabularies_entries ON vocabularies_entries.vocabulary_id = ${vocabularyID} AND entry_id = id;
+      INNER JOIN
+        vocabularies_entries
+      ON
+        vocabularies_entries.entry_id = id
+      WHERE
+        vocabularies_entries.vocabulary_id = ${vocabularyID}
+      INNER JOIN
+        vocabularies_users
+      ON
+        vocabularies_users.vocabulary_id = vocabularies_entries.vocabulary_id
+      WHERE
+        vocabularies_users.userID = ${userID};
     `);
     return rows;
   },

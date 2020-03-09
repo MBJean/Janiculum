@@ -1,10 +1,12 @@
 const graphql = require('graphql')
 const { GraphQLList, GraphQLString } = graphql
-const EntryType = require('../types/entry_type');
-const VocabulariesEntries = require('../../persistence/vocabularies_entries');
-const ErrorMessages = require('../../helpers/error-messages');
+const EntryType = require('../types/entry_type')
+const VocabulariesEntries = require('../../persistence/vocabularies_entries')
+const {
+  USER_NOT_AUTHENTICATED,
+} = require('../../helpers/error-messages')
 
-const VocabularyByUser = {
+const Vocabulary = {
   type: new GraphQLList(EntryType),
   args: {
     id: { type: GraphQLString }
@@ -20,4 +22,4 @@ const VocabularyByUser = {
   }
 }
 
-module.exports = VocabularyByUser
+module.exports = Vocabulary

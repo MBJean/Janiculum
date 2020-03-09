@@ -1,10 +1,12 @@
 const graphql = require('graphql')
 const { GraphQLList } = graphql
-const VocabularyType = require('../types/vocabulary_type');
-const VocabulariesUsers = require('../../persistence/vocabularies_users');
-const ErrorMessages = require('../../helpers/error-messages');
+const VocabularyType = require('../types/vocabulary_type')
+const VocabulariesUsers = require('../../persistence/vocabularies_users')
+const {
+  USER_NOT_AUTHENTICATED,
+} = require('../../helpers/error-messages')
 
-const VocabulariesByUser = {
+const Vocabularies = {
   type: new GraphQLList(VocabularyType),
   resolve: (source, {}, request) => {
     const userID = request.session.userID;
@@ -17,4 +19,4 @@ const VocabulariesByUser = {
   }
 }
 
-module.exports = VocabulariesByUser
+module.exports = Vocabularies
