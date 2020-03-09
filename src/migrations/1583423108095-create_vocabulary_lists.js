@@ -1,7 +1,7 @@
-const db = require('../persistence/db');
+const db = require('../persistence/db')
 
 module.exports.up = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
   CREATE TABLE IF NOT EXISTS vocabulary_lists (
@@ -42,14 +42,14 @@ module.exports.up = async function(next) {
     FOREIGN KEY (vocabulary_list_id) REFERENCES vocabulary_lists(id) ON UPDATE CASCADE,
     FOREIGN KEY (dictionary_definition_id) REFERENCES dictionary_definitions(id) ON UPDATE CASCADE
   );
-  `);
+  `)
 
-  await client.release(true);
-  next();
-};
+  await client.release(true)
+  next()
+}
 
 module.exports.down = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
   DROP TABLE if exists vocabulary_lists cascade;
@@ -61,8 +61,8 @@ module.exports.down = async function(next) {
   DROP TABLE if exists vocabulary_lists_dictionary_entries cascade;
 
   DROP TABLE if exists vocabulary_lists_dictionary_definitions cascade;
-  `);
+  `)
 
-  await client.release(true);
-  next();
-};
+  await client.release(true)
+  next()
+}

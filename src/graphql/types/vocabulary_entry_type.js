@@ -5,9 +5,9 @@ const VocabularyEntryType = new GraphQLObjectType({
   name: 'VocabularyEntry',
   fields: {
     id: {
-      type: GraphQLString
-    }
-  }
-});
+      type: GraphQLString,
+    },
+  },
+})
 
 module.exports = VocabularyEntryType

@@ -12,22 +12,22 @@ const createUser = {
   type: UserType,
   args: {
     email: { type: GraphQLString },
-    password: { type: GraphQLString }
+    password: { type: GraphQLString },
   },
-  resolve: (source, { email,  password }, request) => {
+  resolve: (source, { email, password }, request) => {
     if (!email || !password) {
-      throw new Error(MISSING_ARGUMENTS);
+      throw new Error(MISSING_ARGUMENTS)
     }
     return User.create(email, password)
       .then(user => {
         if (!user) {
-          throw new Error(USER_ALREADY_EXISTS);
+          throw new Error(USER_ALREADY_EXISTS)
         }
-        setSessionData(request, user.id, user.email);
-        return user;
+        setSessionData(request, user.id, user.email)
+        return user
       })
-      .catch(err => err);
-  }
-};
+      .catch(err => err)
+  },
+}
 
 module.exports = createUser

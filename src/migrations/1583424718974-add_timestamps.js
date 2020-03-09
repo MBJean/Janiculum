@@ -1,7 +1,7 @@
-const db = require('../persistence/db');
+const db = require('../persistence/db')
 
 module.exports.up = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
   ALTER TABLE dictionary_definitions
@@ -36,13 +36,13 @@ module.exports.up = async function(next) {
 
   ALTER TABLE vocabulary_lists
   ADD COLUMN created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP;
-  `);
-  await client.release(true);
-  next();
-};
+  `)
+  await client.release(true)
+  next()
+}
 
 module.exports.down = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
   ALTER TABLE dictionary_definitions
@@ -77,8 +77,8 @@ module.exports.down = async function(next) {
 
   ALTER TABLE vocabulary_lists
   DROP COLUMN created_at;
-  `);
+  `)
 
-  await client.release(true);
-  next();
-};
+  await client.release(true)
+  next()
+}

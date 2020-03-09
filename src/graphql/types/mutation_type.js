@@ -6,15 +6,15 @@ const authenticateUser = require('../mutations/authenticate_user')
 const createUser = require('../mutations/create_user')
 const createVocabulary = require('../mutations/create_vocabulary')
 
-const queryType =  new GraphQLObjectType({
+const queryType = new GraphQLObjectType({
   name: 'Mutation',
   fields: {
     addEntryToVocabulary,
     addUserToVocabulary,
     authenticateUser,
     createUser,
-    createVocabulary
-  }
-});
+    createVocabulary,
+  },
+})
 
-module.exports = queryType;
+module.exports = queryType

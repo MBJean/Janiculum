@@ -1,7 +1,7 @@
-const db = require('../persistence/db');
+const db = require('../persistence/db')
 
 module.exports.up = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
   ALTER TABLE dictionary_definitions
@@ -24,13 +24,13 @@ module.exports.up = async function(next) {
 
   ALTER TABLE vocabulary_lists_users
   RENAME TO vocabularies_users;
-  `);
-  await client.release(true);
-  next();
-};
+  `)
+  await client.release(true)
+  next()
+}
 
 module.exports.down = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
     ALTER TABLE definitions
@@ -53,8 +53,8 @@ module.exports.down = async function(next) {
 
     ALTER TABLE vocabularies_users
     RENAME TO vocabulary_lists_users;
-  `);
+  `)
 
-  await client.release(true);
-  next();
-};
+  await client.release(true)
+  next()
+}

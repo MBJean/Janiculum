@@ -1,5 +1,5 @@
-const sql = require('sql-template-strings');
-const db = require('../db');
+const sql = require('sql-template-strings')
+const db = require('../db')
 
 module.exports = {
   async checkAdminAccess(vocabularyID, userID) {
@@ -18,8 +18,8 @@ module.exports = {
         user_id = ${userID}
       AND
         admin = true;
-    `);
-    return rows.length > 0;
+    `)
+    return rows.length > 0
   },
   async checkViewAccess(vocabularyID, userID) {
     const { rows } = await db.query(sql`
@@ -35,7 +35,7 @@ module.exports = {
         vocabulary_id = ${vocabularyID}
       AND
         user_id = ${userID};
-    `);
-    return rows.length > 0;
-  }
-};
+    `)
+    return rows.length > 0
+  },
+}

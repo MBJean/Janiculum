@@ -5,15 +5,15 @@ const VocabularyType = new GraphQLObjectType({
   name: 'Vocabulary',
   fields: {
     id: {
-      type: GraphQLString
+      type: GraphQLString,
     },
     name: {
-      type: GraphQLString
+      type: GraphQLString,
     },
     description: {
-      type: GraphQLString
-    }
-  }
-});
+      type: GraphQLString,
+    },
+  },
+})
 
 module.exports = VocabularyType

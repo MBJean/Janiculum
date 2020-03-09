@@ -14,26 +14,29 @@ const addEntryToVocabulary = {
   type: VocabularyEntryType,
   args: {
     vocabularyID: { type: GraphQLString },
-    entryID: { type: GraphQLString }
+    entryID: { type: GraphQLString },
   },
-  resolve: (source, { vocabularyID,  entryID }, request) => {
+  resolve: (source, { vocabularyID, entryID }, request) => {
     if (!vocabularyID || !entryID) {
-      throw new Error(MISSING_ARGUMENTS);
+      throw new Error(MISSING_ARGUMENTS)
     }
     if (!request.session.userID) {
-      throw new Error(USER_NOT_AUTHENTICATED);
+      throw new Error(USER_NOT_AUTHENTICATED)
     }
-    return VocabularyHelpers.checkViewAccess(vocabularyID, request.session.userID)
+    return VocabularyHelpers.checkViewAccess(
+      vocabularyID,
+      request.session.userID
+    )
       .then(hasViewAccess => {
         if (!hasViewAccess) {
-          throw new Error(USER_WITHOUT_PERMISSIONS);
+          throw new Error(USER_WITHOUT_PERMISSIONS)
         }
         return VocabulariesEntries.create(vocabularyID, entryID)
           .then(vocabularyEntry => vocabularyEntry)
-          .catch(err => err);
+          .catch(err => err)
       })
-      .catch(err => err);
-  }
-};
+      .catch(err => err)
+  },
+}
 
 module.exports = addEntryToVocabulary

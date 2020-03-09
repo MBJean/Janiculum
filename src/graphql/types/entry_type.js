@@ -5,18 +5,18 @@ const EntryType = new GraphQLObjectType({
   name: 'Entry',
   fields: {
     id: {
-      type: GraphQLString
+      type: GraphQLString,
     },
     reference_number: {
-      type: GraphQLString
+      type: GraphQLString,
     },
     lemma: {
-      type: GraphQLString
+      type: GraphQLString,
     },
     body: {
-      type: GraphQLString
-    }
-  }
-});
+      type: GraphQLString,
+    },
+  },
+})
 
 module.exports = EntryType

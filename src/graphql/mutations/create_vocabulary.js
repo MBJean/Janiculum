@@ -12,19 +12,19 @@ const createVocabulary = {
   type: VocabularyType,
   args: {
     name: { type: GraphQLString },
-    description: { type: GraphQLString }
+    description: { type: GraphQLString },
   },
-  resolve: (source, { name,  description }, request) => {
+  resolve: (source, { name, description }, request) => {
     if (!name) {
-      throw new Error(MISSING_ARGUMENTS);
+      throw new Error(MISSING_ARGUMENTS)
     }
     if (!request.session.userID) {
-      throw new Error(USER_NOT_AUTHENTICATED);
+      throw new Error(USER_NOT_AUTHENTICATED)
     }
     return Vocabulary.create(name, description, request.session.userID)
       .then(id => id)
-      .catch(err => err);
-  }
-};
+      .catch(err => err)
+  },
+}
 
 module.exports = createVocabulary

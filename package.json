@@ -11,7 +11,13 @@
     "start": "node ./bin/start.js",
     "dev": "nodemon ./bin/start.js",
     "migrate": "node ./bin/migrate.js",
-    "migrate:create": "migrate create --migrations-dir='./src/migrations'"
+    "migrate:create": "migrate create --migrations-dir='./src/migrations'",
+    "prettier": "prettier --write '{src,__{tests,mocks}__}/**/*.js'"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": false,
+    "singleQuote": true
   },
   "author": "Michael Jean",
   "license": "MIT",
@@ -36,6 +42,7 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.11",
+    "prettier": "1.19.1",
     "xo": "^0.24.0"
   }
 }

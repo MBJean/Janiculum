@@ -1,7 +1,7 @@
-const db = require('../persistence/db');
+const db = require('../persistence/db')
 
 module.exports.up = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
   CREATE TABLE IF NOT EXISTS organizations (
@@ -18,21 +18,21 @@ module.exports.up = async function(next) {
     FOREIGN KEY (organization_id) REFERENCES organizations(id) ON UPDATE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE
   );
-  `);
+  `)
 
-  await client.release(true);
-  next();
-};
+  await client.release(true)
+  next()
+}
 
 module.exports.down = async function(next) {
-  const client = await db.connect();
+  const client = await db.connect()
 
   await client.query(`
   DROP TABLE if exists organizations cascade;
 
   DROP TABLE if exists organizations_users cascade;
-  `);
+  `)
 
-  await client.release(true);
-  next();
-};
+  await client.release(true)
+  next()
+}

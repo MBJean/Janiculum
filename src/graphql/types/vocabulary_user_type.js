@@ -5,12 +5,12 @@ const VocabularyUserType = new GraphQLObjectType({
   name: 'VocabularyUser',
   fields: {
     id: {
-      type: GraphQLString
+      type: GraphQLString,
     },
     admin: {
-      type: GraphQLBoolean
-    }
-  }
-});
+      type: GraphQLBoolean,
+    },
+  },
+})
 
 module.exports = VocabularyUserType
