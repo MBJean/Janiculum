@@ -12,8 +12,8 @@
     "dev": "nodemon ./bin/start.js",
     "migrate": "node ./bin/migrate.js",
     "migrate:create": "migrate create --migrations-dir='./src/migrations'",
-    "prettier-write": "prettier --write '{src,__{tests,mocks}__}/**/*.js'",
-    "prettier-check": "prettier --check '{src,__{tests,mocks}__}/**/*.js'"
+    "prettier:write": "prettier --write '{src,__{tests,mocks}__}/**/*.js'",
+    "prettier:check": "prettier --check '{src,__{tests,mocks}__}/**/*.js'"
   },
   "prettier": {
     "trailingComma": "es5",
