@@ -4,8 +4,8 @@ const Entry = require('../persistence/entries')
 const Definition = require('../persistence/definitions')
 
 module.exports = {
-  init() {
-    fs.readFile(__dirname + '/../lib/lat-dict-a.xml', 'utf8', function(
+  init(file) {
+    fs.readFile(__dirname + `/../lib/latin-dictionary/${file}`, 'utf8', function(
       err,
       xml
     ) {
