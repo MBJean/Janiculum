@@ -18,6 +18,7 @@ commands:
             docker push registry.heroku.com/thelatintoolkit/web:latest
 
 orbs:
+  docker: circleci/docker@1.0.0
   node: circleci/node@1.1.6
 
 jobs:
@@ -31,9 +32,8 @@ jobs:
             - run: npm install
             - run: npm run prettier:check
   push-to-heroku:
-    machine:
-      services:
-        - docker
+    executor:
+      name: docker/machine
     steps:
       - docker-push
 
