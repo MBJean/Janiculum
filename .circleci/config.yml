@@ -1,6 +1,25 @@
 version: 2.1
+
+commands:
+  docker-push:
+    description: Build and push image to Heroku registry via docker
+    steps:
+      - run:
+          name: Log in to Heroku registry via docker
+          command: |
+            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+      - run:
+          name: Build image
+          command: |
+            docker build --rm=false -t registry.heroku.com/thelatintoolkit/web .
+      - run:
+          name: Push image
+          command: |
+            docker push registry.heroku.com/thelatintoolkit/web:latest
+
 orbs:
   node: circleci/node@1.1.6
+
 jobs:
   build-and-test:
     executor:
@@ -15,13 +34,9 @@ jobs:
     machine:
       services:
         - docker
-    dependencies:
-      cache_directories:
-        - ~/docker
-    commands:
-      - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
-      - docker build --rm=false -t registry.heroku.com/thelatintoolkit/web .
-      - docker push registry.heroku.com/thelatintoolkit/web:latest
+    steps:
+      - docker-push
+
 workflows:
     build-test-deploy:
       jobs:
