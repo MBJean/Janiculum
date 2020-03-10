@@ -1,22 +1,5 @@
 version: 2.1
 
-commands:
-  docker-push:
-    description: Build and push image to Heroku registry via docker
-    steps:
-      - run:
-          name: Log in to Heroku registry via docker
-          command: |
-            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
-      - run:
-          name: Build image
-          command: |
-            docker build --rm=false -t registry.heroku.com/thelatintoolkit/web .
-      - run:
-          name: Push image
-          command: |
-            docker push registry.heroku.com/thelatintoolkit/web:latest
-
 orbs:
   docker: circleci/docker@1.0.0
   node: circleci/node@1.1.6
@@ -31,20 +14,46 @@ jobs:
           steps:
             - run: npm install
             - run: npm run prettier:check
-  push-to-heroku:
-    executor:
-      name: docker/machine
+  deploy-to-production:
+    executors:
+      node:
+        docker:
+          - image: circleci/node:12
     steps:
       - checkout
-      - docker-push
+      - run:
+          name: Install Heroku CLI, if necessary
+          command: |
+            if [[ $(command -v heroku) == "" ]]; then
+              curl https://cli-assets.heroku.com/install.sh | sh
+            else
+              echo "Heroku is already installed. No operation was performed."
+            fi
+      - run:
+          name: Login into Heroku Docker Repository
+          command: |
+            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+      - run:
+          name: Deploy Heroku Docker Container
+          command: |
+            heroku container:push web -a $HEROKU_APP_NAME
+            heroku container:release web -a $HEROKU_APP_NAME
 
 workflows:
     build-test-deploy:
       jobs:
         - build-and-test
-        - push-to-heroku:
+        - approve-deploy-to-production:
+            type: approval
+            filters:
+              branches:
+                only:
+                  - master
             requires:
               - build-and-test
+        - deploy-to-production:
+            requires:
+              - approve-deploy-to-production
             filters:
               branches:
                 only:
