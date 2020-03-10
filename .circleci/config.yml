@@ -35,6 +35,7 @@ jobs:
     executor:
       name: docker/machine
     steps:
+      - checkout
       - docker-push
 
 workflows:
