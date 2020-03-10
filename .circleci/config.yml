@@ -11,7 +11,25 @@ jobs:
           steps:
             - run: npm install
             - run: npm run prettier:check
+  push-to-heroku:
+    machine:
+      services:
+        - docker
+    dependencies:
+      cache_directories:
+        - ~/docker
+    commands:
+      - docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+      - docker build --rm=false -t registry.heroku.com/thelatintoolkit/web .
+      - docker push registry.heroku.com/thelatintoolkit/web:latest
 workflows:
-    build-and-test:
+    build-test-deploy:
       jobs:
         - build-and-test
+        - push-to-heroku:
+            requires:
+              - build-and-test
+            filters:
+              branches:
+                only:
+                  - master
