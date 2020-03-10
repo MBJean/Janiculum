@@ -15,10 +15,8 @@ jobs:
             - run: npm install
             - run: npm run prettier:check
   deploy-to-production:
-    executors:
-      node:
-        docker:
-          - image: circleci/node:12
+    executor:
+      name: docker/machine
     steps:
       - checkout
       - run:
