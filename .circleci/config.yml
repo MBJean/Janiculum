@@ -1,6 +1,26 @@
 version: 2.1
+
+commands:
+  docker-push:
+    description: Build and push image to Heroku registry via docker
+    steps:
+      - run:
+          name: Log in to Heroku registry via docker
+          command: |
+            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+      - run:
+          name: Build image
+          command: |
+            docker build --rm=false -t registry.heroku.com/thelatintoolkit/web .
+      - run:
+          name: Push image
+          command: |
+            docker push registry.heroku.com/thelatintoolkit/web:latest
+
 orbs:
+  docker: circleci/docker@1.0.0
   node: circleci/node@1.1.6
+
 jobs:
   build-and-test:
     executor:
@@ -11,7 +31,20 @@ jobs:
           steps:
             - run: npm install
             - run: npm run prettier:check
+  push-to-heroku:
+    executor:
+      name: docker/machine
+    steps:
+      - docker-push
+
 workflows:
-    build-and-test:
+    build-test-deploy:
       jobs:
         - build-and-test
+        - push-to-heroku:
+            requires:
+              - build-and-test
+            filters:
+              branches:
+                only:
+                  - master
