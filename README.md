@@ -1,4 +1,4 @@
-# The Latin Toolkit
+# Janiculum: Latin Learning Application
 
 > A playground for building tooling to aid students learning the Latin language. Repo Based originally off of https://github.com/HugoDF/express-postgres-starter. At present, this application exposes via GraphQL a search functionality that allows users to search Lewis & Short's Latin Dictionary and return xml of dictionary entries.
 
