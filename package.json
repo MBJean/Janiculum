@@ -1,8 +1,8 @@
 {
-  "name": "the-latin-toolkit-api",
+  "name": "janiculum-api",
   "private": true,
   "version": "1.0.0",
-  "description": "An API layer for a variety of Latin learning tools",
+  "description": "An API layer for Janiculum: Latin Learning Application.",
   "main": "config.js",
   "scripts": {
     "test": "xo",
