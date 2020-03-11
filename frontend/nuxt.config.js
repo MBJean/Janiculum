@@ -100,7 +100,7 @@ export default {
         },
         // You can use `wss` for secure connection (recommended in production)
         // Use `null` to disable subscriptions
-        wsEndpoint: 'ws://localhost:8000', // optional
+        wsEndpoint: null, // optional
         // LocalStorage token
         tokenName: 'apollo-token', // optional
         // Enable Automatic Query persisting with Apollo Engine
@@ -108,11 +108,6 @@ export default {
         // Use websockets for everything (no HTTP)
         // You need to pass a `wsEndpoint` for this to work
         websocketsOnly: false // Optional
-      },
-      test: {
-        httpEndpoint: 'http://localhost:8000',
-        wsEndpoint: 'ws://localhost:8000',
-        tokenName: 'apollo-token'
       },
     }
   },
