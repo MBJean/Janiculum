@@ -110,8 +110,8 @@ export default {
         websocketsOnly: false // Optional
       },
       test: {
-        httpEndpoint: 'http://localhost:5000',
-        wsEndpoint: 'ws://localhost:5000',
+        httpEndpoint: 'http://localhost:8000',
+        wsEndpoint: 'ws://localhost:8000',
         tokenName: 'apollo-token'
       },
     }

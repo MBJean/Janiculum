@@ -1,6 +1,7 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql')
 const graphqlSchema = require('./src/graphql/schema.js')
+const cors = require('cors')
 
 const morgan = require('morgan');
 const clientSession = require('client-sessions');
@@ -22,6 +23,8 @@ app.use(
   })
 );
 app.use(helmet());
+
+app.use(cors())
 
 app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
