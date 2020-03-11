@@ -17,7 +17,7 @@ export default {
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Chivo|Lato&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Chivo:400,700|Lato:400,700,900&display=swap' },
       { rel: 'apple-touch-icon', href: '57x57', sizes: '/apple-icon-57x57.png' },
       { rel: 'apple-touch-icon', href: '60x60', sizes: '/apple-icon-60x60.png' },
       { rel: 'apple-touch-icon', href: '72x72', sizes: '/apple-icon-72x72.png' },

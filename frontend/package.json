@@ -15,6 +15,7 @@
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/style-resources": "^1.0.0",
+    "bulma": "^0.8.0",
     "graphql-tag": "^2.10.3",
     "nuxt": "^2.0.0",
     "vue": "^2.6.6",
