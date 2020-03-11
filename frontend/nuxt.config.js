@@ -9,10 +9,29 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { name: 'msapplication-TileColor', content: '#ffffff' },
+      { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' },
+      { name: 'theme-color', content: '#ffffff' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Chivo|Lato&display=swap' },
+      { rel: 'apple-touch-icon', href: '57x57', sizes: '/apple-icon-57x57.png' },
+      { rel: 'apple-touch-icon', href: '60x60', sizes: '/apple-icon-60x60.png' },
+      { rel: 'apple-touch-icon', href: '72x72', sizes: '/apple-icon-72x72.png' },
+      { rel: 'apple-touch-icon', href: '76x76', sizes: '/apple-icon-76x76.png' },
+      { rel: 'apple-touch-icon', href: '114x114', sizes: '/apple-icon-114x114.png' },
+      { rel: 'apple-touch-icon', href: '120x120', sizes: '/apple-icon-120x120.png' },
+      { rel: 'apple-touch-icon', href: '144x144', sizes: '/apple-icon-144x144.png' },
+      { rel: 'apple-touch-icon', href: '152x152', sizes: '/apple-icon-152x152.png' },
+      { rel: 'apple-touch-icon', href: '180x180', sizes: '/apple-icon-180x180.png' },
+      { rel: 'icon', type: 'image/png', href: '192x192', sizes: '/android-icon-192x192.png' },
+      { rel: 'icon', type: 'image/png', href: '32x32', sizes: '/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/png', href: '96x96', sizes: '/favicon-96x96.png' },
+      { rel: 'icon', type: 'image/png', href: '16x16', sizes: '/favicon-16x16.png' },
+      { rel: 'manifest', href: '/manifest.json' },
     ]
   },
   /*
@@ -23,7 +42,13 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/scss/index.scss'
   ],
+  styleResources:  {
+    scss: [
+      '~/assets/scss/variables.scss'
+    ]
+  },
   /*
   ** Plugins to load before mounting the App
   */
@@ -40,6 +65,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/style-resources',
     ['@nuxtjs/apollo'],
   ],
   /*

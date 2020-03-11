@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        Title goes here (update)
+        Title goes here (update 2)
       </h1>
       <h2 class="subtitle">
         Nuxt-based frontend for The Latin Toolkit.
