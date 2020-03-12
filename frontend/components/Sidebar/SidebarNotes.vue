@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>Notes functionality coming soon!</p>
+    <p class="align--center">Notes functionality coming soon</p>
   </div>
 </template>
 
@@ -11,4 +11,7 @@ export default {
 </script>
 
 <style lang="scss" scoped="true">
+p {
+  color: $color-primary-1-1;
+}
 </style>

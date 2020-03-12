@@ -3,18 +3,33 @@
 }
 
 .form__container {
+  display: block;
+  margin-bottom: $spacer-1;
   width: 100%;
 }
 
 .form__input {
+  border: 0;
+  border-bottom: 2px solid $color-primary-1-3;
   box-sizing: border-box;
   font-size: $font-size-5;
+  font-family: $font-body;
   padding: $spacer-1;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
+  &:hover,
+  &:focus, {
+    border-bottom: 2px solid $color-primary-1-1;
+    outline: 0;
+  }
+  &:hover {
+    box-shadow: $box-shadow-standard;
+  }
 }
 
 .form__list {
-  margin-top: 0.25rem;
+  box-shadow: $box-shadow-standard;
+  margin-top: -1rem;
 }
 
 .form__list-item {
@@ -24,4 +39,10 @@
   &:not(:last-child) {
     border-bottom: 0.1rem $color-primary-3-4 solid;
   }
+}
+
+.form__label {
+  font-size: $font-size-5;
+  font-weight: $font-weight-bold;
+  line-height: 3;
 }

@@ -1,6 +1,6 @@
 <template>
   <footer class="layout__footer">
-    <p class="align--center">&copy; Michael Jean {{ new Date().getFullYear() }}</p>
+    <p>&copy; Michael Jean {{ new Date().getFullYear() }}</p>
   </footer>
 </template>
 

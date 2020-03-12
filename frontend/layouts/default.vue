@@ -1,21 +1,21 @@
 <template>
   <div class="layout--main">
-    <Nav />
+    <NavBase />
     <nuxt />
     <SidebarBase />
-    <Footer />
+    <FooterBase />
   </div>
 </template>
 
 <script>
-import Footer from '~/components/Footer.vue'
-import Nav from '~/components/Nav.vue'
+import FooterBase from '~/components/Footer/FooterBase.vue'
+import NavBase from '~/components/Nav/NavBase.vue'
 import SidebarBase from '~/components/Sidebar/SidebarBase.vue'
 
 export default {
   components: {
-    Footer,
-    Nav,
+    FooterBase,
+    NavBase,
     SidebarBase
   }
 }

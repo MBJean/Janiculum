@@ -1,18 +1,19 @@
 <template>
-  <div>
+  <div v-on-clickaway="close">
     <label class="form__container">
-      <p>Search for a Latin word</p>
+      <p class="form__label">Search for a Latin word</p>
       <input
         class="form__input"
         :value="query"
         @input="onChange"
+        @focus="onFocus"
       />
     </label>
     <p v-if="searching">Searching...</p>
     <p v-else-if="error">Sorry, an error occurred. Please try again</p>
     <p v-else-if="help">{{ help }}</p>
     <ol
-      v-else-if="suggestions && suggestions.length"
+      v-else-if="suggestions && suggestions.length && open"
       class="form__list"
     >
       <li
@@ -20,27 +21,41 @@
         class="form__list-item"
         @click="onClickSuggestion(suggestion)"
       >
-        {{ suggestion.lemma }}
+        <span>
+          {{ suggestion.lemma }}
+          <!-- <span class="text--overflow" v-html="suggestion.body"></span> -->
+        </span>
       </li>
     </ol>
+    <EntryBase
+      v-if="selection"
+      :body="selection.body"
+    />
   </div>
 </template>
 
 <script>
 import QUERIES from '~/graphql/queries'
 import * as debounce from 'lodash.debounce'
+import EntryBase from '~/components/Entry/EntryBase.vue'
+import { mixin as clickaway } from 'vue-clickaway';
 
 const HELP_MESSAGES = {
   NO_MATCH: 'No match, please search again.'
 }
 
 export default {
+  components: {
+    EntryBase
+  },
   data() {
     return {
       error: false,
       help: null,
+      open: false,
       query: '',
       searching: false,
+      selection: null,
       suggestions: null
     }
   },
@@ -50,6 +65,11 @@ export default {
     }
   },
   methods: {
+
+    close() {
+      this.open = false;
+    },
+
     onChange: debounce(function(event) {
       const query = event.target.value;
       this.query = query;
@@ -57,8 +77,14 @@ export default {
     }, 500),
 
     onClickSuggestion(suggestion) {
-      this.$emit('selectSuggestion', suggestion);
-      this.reset();
+      this.close();
+      this.selection = suggestion;
+    },
+
+    onFocus() {
+      if (this.query.length && this.suggestions.length) {
+        this.open = true;
+      }
     },
 
     parseResponse(response) {
@@ -69,9 +95,10 @@ export default {
       const entries = response.data.entries;
       if (entries.length == 0) {
         this.help = this.HELP_MESSAGES.NO_MATCH;
-      } else {
-        this.suggestions = entries;
+        return;
       }
+      this.open = true;
+      this.suggestions = entries;
     },
 
     reset() {
@@ -79,6 +106,7 @@ export default {
       this.help = null;
       this.query = '';
       this.searching = false;
+      this.selection = null;
       this.suggestions = null;
     },
 
@@ -101,7 +129,10 @@ export default {
           this.searching = false;
         })
     },
-  }
+  },
+  mixins: [
+    clickaway
+  ],
 }
 
 </script>

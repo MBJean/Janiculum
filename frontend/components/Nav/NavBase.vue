@@ -7,8 +7,19 @@
 </template>
 
 <style lang="scss" scoped="true">
+nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+ul {
+  display: flex;
+  * {
+    margin: 0 1rem;
+  }
+}
 img {
-  height: 100%;
+  height: $spacer-3;
   width: auto;
 }
 </style>

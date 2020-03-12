@@ -7,6 +7,7 @@
         @click="select(OPTIONS.SEARCH)"
       >
         <i class="material-icons">search</i>
+        <span>Dictionary</span>
       </button>
       <button
         class="button"
@@ -14,6 +15,7 @@
         @click="select(OPTIONS.VOCABULARY)"
       >
         <i class="material-icons">format_list_bulleted</i>
+        <span>Vocab</span>
       </button>
       <button
         class="button"
@@ -21,19 +23,22 @@
         @click="select(OPTIONS.NOTES)"
       >
         <i class="material-icons">notes</i>
+        <span>Notes</span>
       </button>
     </div>
 
-    <SidebarSearch
-      v-if="selected === OPTIONS.SEARCH"
-      @selectSuggestion="selectSuggestion"
-    />
-    <SidebarVocabularyList
-      v-if="selected === OPTIONS.VOCABULARY"
-    />
-    <SidebarNotes
-      v-if="selected === OPTIONS.NOTES"
-    />
+    <transition name="animate-fade">
+      <SidebarSearch
+        v-if="selected === OPTIONS.SEARCH"
+        @selectSuggestion="selectSuggestion"
+      />
+      <SidebarVocabularyList
+        v-else-if="selected === OPTIONS.VOCABULARY"
+      />
+      <SidebarNotes
+        v-else-if="selected === OPTIONS.NOTES"
+      />
+    </transition>
   </aside>
 </template>
 
@@ -81,7 +86,8 @@ aside {
   background-color: $color-primary-1-4;
   box-shadow: $box-shadow-standard;
   @include min-breakpoint(mobileLarge) {
-    animation: aside-in 0.5s ease;
+    // animation: aside-in 0.5s ease;
+    padding-top: $spacer-7;
   }
 }
 .buttons {
@@ -92,7 +98,15 @@ aside {
 }
 button {
   border-bottom: 0.25rem transparent solid;
+  max-width: 33%;
+  padding: $spacer-1 0;
   transition: border-bottom 0.2s ease;
+  :nth-child(2) {
+    max-width: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 .button--active {
   border-bottom: 0.25rem $color-primary-1-2 solid;
