@@ -1,0 +1,43 @@
+.layout--main {
+  display: grid;
+  grid-gap: $spacer-1;
+  grid-template-areas:
+    "nav"
+    "sidebar"
+    "body"
+    "footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: $spacer-5 auto auto auto;
+  min-height: 100vh;
+  @include min-breakpoint(mobileLarge) {
+    grid-template-areas:
+      "nav nav nav"
+      "sidebar body ."
+      "footer footer footer";
+    grid-template-columns: 2fr 3fr 1fr;
+    grid-template-rows: $spacer-5 auto auto;
+  }
+}
+
+.layout__body,
+.layout__footer,
+.layout__nav,
+.layout__sidebar {
+  padding: $spacer-1;
+}
+
+.layout__body {
+  grid-area: body;
+}
+
+.layout__footer {
+  grid-area: footer;
+}
+
+.layout__nav {
+  grid-area: nav;
+}
+
+.layout__sidebar {
+  grid-area: sidebar;
+}

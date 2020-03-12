@@ -1,0 +1,27 @@
+.form {
+
+}
+
+.form__container {
+  width: 100%;
+}
+
+.form__input {
+  box-sizing: border-box;
+  font-size: $font-size-5;
+  padding: $spacer-1;
+  width: 100%;
+}
+
+.form__list {
+  margin-top: 0.25rem;
+}
+
+.form__list-item {
+  background-color: $color-primary-4-1;
+  margin-bottom: 0;
+  padding: $spacer-1;
+  &:not(:last-child) {
+    border-bottom: 0.1rem $color-primary-3-4 solid;
+  }
+}

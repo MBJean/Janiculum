@@ -1,50 +1,35 @@
 <template>
-  <div class="container">
+  <div class="layout__body">
     <div>
-      <h1 class="title">
-        Janiculum
-      </h1>
-      <h2>A Latin Learning Application</h2>
-      </div>
+
+      <template v-if="visibleEntry">
+        <h1>{{ visibleEntry.lemma }}</h1>
+        <div v-html="visibleEntry.body" />
+      </template>
+
+      <template v-else>
+        <h1>Janiculum</h1>
+        <h2>A Latin Learning Application</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eleifend id diam vitae fermentum. Maecenas ligula ex, convallis ac diam vitae, volutpat suscipit turpis. Praesent fringilla nulla eu ex volutpat imperdiet.</p>
+      </template>
+
     </div>
   </div>
 </template>
 
 <script>
-import QUERIES from '~/graphql/queries'
+import { mapState } from 'vuex'
 
 export default {
-  mounted() {
-    this.foo();
+  data() {
+    return {
+
+    };
   },
-  methods:{
-    foo(){
-      this.$apollo
-        .query({
-          query: QUERIES.LEMMA_SEARCH,
-          variables: { searchQuery: 'acervus' },
-        })
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-        .finally(() => {
-          console.log('finished search')
-        })
-    }
-  }
+  computed: {
+    ...mapState({
+      visibleEntry: state => state.base.visibleEntry
+    }),
+  },
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-</style>
