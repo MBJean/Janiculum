@@ -20,7 +20,7 @@
         class="form__list-item"
         @click="onClickSuggestion(suggestion)"
       >
-        {{ suggestion.lemma.replace(/\d/g, '') }}
+        {{ suggestion.lemma }}
       </li>
     </ol>
   </div>

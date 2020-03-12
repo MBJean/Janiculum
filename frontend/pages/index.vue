@@ -3,8 +3,8 @@
     <div>
 
       <template v-if="visibleEntry">
-        <h1>{{ visibleEntry.lemma }}</h1>
-        <div v-html="visibleEntry.body" />
+        <h1 class="h--2">{{ visibleEntry.lemma }}</h1>
+        <EntryBase :body="visibleEntry.body" />
       </template>
 
       <template v-else>
@@ -19,12 +19,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import EntryBase from '~/components/Entry/EntryBase.vue'
 
 export default {
-  data() {
-    return {
-
-    };
+  components: {
+    EntryBase
   },
   computed: {
     ...mapState({
