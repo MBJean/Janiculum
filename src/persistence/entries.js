@@ -25,10 +25,18 @@ module.exports = {
       body: entry.body,
     }))
   },
+  async updateOrthography(referenceNumber, orthographicDetails) {
+    const { rows } = await db.query(sql`
+      UPDATE entries
+      SET orthography = ${orthographicDetails}
+      WHERE reference_number = ${referenceNumber};
+    `)
+    return rows
+  },
   search(query) {
     return new Promise((resolve, reject) => {
       db.query(
-        'SELECT id, reference_number, lemma, body FROM entries WHERE lemma ILIKE $1 ORDER BY lemma ASC LIMIT 10',
+        'SELECT id, reference_number, lemma, body, orthography FROM entries WHERE lemma ILIKE $1 ORDER BY lemma ASC LIMIT 10',
         [query + '%'],
         (err, result) => {
           resolve(result.rows)

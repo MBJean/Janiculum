@@ -48,4 +48,72 @@ module.exports = {
       }
     )
   },
+  addOrthographicDetails(file) {
+    fs.readFile(
+      __dirname + `/../lib/latin-dictionary/${file}`,
+      'utf8',
+      function(err, xml) {
+        if (err) {
+          console.log(err)
+          return
+        }
+        const doc = new DOMParser().parseFromString(xml)
+        const entries = doc.getElementsByTagName('entryFree')
+        for (let i = 0; i < entries.length; i++) {
+          const entry = entries[i]
+
+          let orthFull = Array.prototype.filter.call(
+              entry.getElementsByTagName('orth'),
+              (el) => el.getAttribute('extent') == 'full'
+          )[0];
+          orthFull = orthFull && orthFull.childNodes && orthFull.childNodes.length
+            ? orthFull.childNodes[0].nodeValue
+            : null
+
+          let orthAlt = Array.prototype.filter.call(
+              entry.getElementsByTagName('orth'),
+              (el) => el.getAttribute('type') == 'alt'
+          )[0];
+          orthAlt = orthAlt && orthAlt.childNodes && orthAlt.childNodes.length
+            ? orthAlt.childNodes[0].nodeValue
+            : null
+
+          let itype = entry.getElementsByTagName('itype')[0]
+          itype = itype && itype.childNodes && itype.childNodes.length
+            ? itype.childNodes[0].nodeValue
+            : null
+
+          let pos = entry.getElementsByTagName('pos')[0]
+          pos = pos && pos.childNodes && pos.childNodes.length
+            ? pos.childNodes[0].nodeValue
+            : null
+
+          let etym = entry.getElementsByTagName('etym')[0]
+          etym = etym && etym.childNodes && etym.childNodes.length
+            ? etym.childNodes[0].nodeValue
+            : null
+
+          const orthgraphicDetails = [
+            orthFull,
+            orthAlt,
+            itype,
+            pos,
+            etym
+          ]
+          .filter(detail => !!detail)
+          .join(' ')
+          Entry.updateOrthography(
+            entry.getAttribute('id'),
+            orthgraphicDetails
+          )
+            .then(entry_id => {
+              process.stdout.write('.')
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      }
+    )
+  }
 }

@@ -8,6 +8,7 @@ export default {
         reference_number
         lemma
         body
+        orthography
       }
     }
   `,

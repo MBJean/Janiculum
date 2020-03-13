@@ -16,6 +16,9 @@ const EntryType = new GraphQLObjectType({
     body: {
       type: GraphQLString,
     },
+    orthography: {
+      type: GraphQLString,
+    },
   },
 })
 

@@ -21,10 +21,9 @@
         class="form__list-item"
         @click="onClickSuggestion(suggestion)"
       >
-        <span>
-          {{ suggestion.lemma }}
-          <!-- <span class="text--overflow" v-html="suggestion.body"></span> -->
-        </span>
+        <div class="text--overflow">
+          <span>{{ suggestion.orthography }}</span>
+        </div>
       </li>
     </ol>
     <EntryBase
