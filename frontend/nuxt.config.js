@@ -115,10 +115,7 @@ export default {
     clientConfigs: {
       default: {
         // required
-        httpEndpoint: 'http://localhost:8000',
-        // optional
-        // override HTTP endpoint in browser only
-        browserHttpEndpoint: 'http://localhost:8000/graphql',
+        httpEndpoint: process.env.NODE_ENV === 'production' ? '/graphql' : 'http://localhost:8000/graphql',
         // optional
         // See https://www.apollographql.com/docs/link/links/http.html#options
         httpLinkOptions: {
@@ -136,6 +133,12 @@ export default {
         websocketsOnly: false // Optional
       },
     }
+  },
+  /*
+  ** Generate configuration
+  */
+  generate: {
+    dir: '../public'
   },
   /*
   ** Build configuration

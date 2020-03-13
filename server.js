@@ -24,12 +24,16 @@ app.use(
 );
 app.use(helmet());
 
-app.use(cors())
+if (process.env.NODE_ENV !== 'production') {
+  app.use(cors())
+}
 
 app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
   graphiql: true
 }))
+
+app.use(express.static('public'))
 
 app.get('/', function (req, res){
   if (req.session.userID) {
