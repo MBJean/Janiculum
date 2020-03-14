@@ -9,10 +9,14 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Free-to-use Latin language learning tools, including a dictionary search, customizable vocabulary lists, and note-taking.' },
+      { hid: 'description', name: 'description', content: 'Free-to-use Latin language learning tools, including a dictionary search, customizable vocabulary lists, and note taking.' },
       { name: 'msapplication-TileColor', content: '#ffffff' },
       { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' },
       { name: 'theme-color', content: '#ffffff' },
+      { name: 'og:type', content: 'website' },
+      { name: 'og:title', content: 'Janiculum: A Latin Learning Application' },
+      { name: 'og:description', content: 'Free-to-use Latin language learning tools, including a dictionary search, customizable vocabulary lists, and note taking.' },
+      { name: 'og:url', content: 'https://janiculum.herokuapp.com' }
     ],
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
