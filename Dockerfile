@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN cd frontend && npm install
+
 EXPOSE 8000
 
 CMD npm start

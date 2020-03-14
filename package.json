@@ -8,7 +8,7 @@
     "test": "xo",
     "lint": "xo",
     "format": "xo --fix",
-    "start": "cd frontend && npm install && npm run generate && cd ../ && node ./bin/start.js",
+    "start": "cd frontend && npm run generate && cd ../ && node ./bin/start.js",
     "dev": "nodemon ./bin/start.js",
     "migrate": "node ./bin/migrate.js",
     "migrate:create": "migrate create --migrations-dir='./src/migrations'",
