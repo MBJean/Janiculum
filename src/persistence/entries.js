@@ -3,14 +3,14 @@ const uuid = require('uuid/v4')
 const db = require('./db')
 
 module.exports = {
-  async create(reference_number, lemma, body) {
-    if (!reference_number || !lemma || !body) {
+  async create(reference_number, lemma, body, orthographicDetails) {
+    if (!reference_number || !lemma || !body || !orthographicDetails) {
       return null
     }
     const id = uuid()
     await db.query(sql`
-    INSERT INTO entries (id, reference_number, lemma, body)
-      VALUES (${id}, ${reference_number}, ${lemma}, ${body});
+    INSERT INTO entries (id, reference_number, lemma, body, orthography)
+      VALUES (${id}, ${reference_number}, ${lemma}, ${body}, ${orthography});
     `)
     return id
   },
@@ -24,14 +24,6 @@ module.exports = {
       lemma: entry.lemma,
       body: entry.body,
     }))
-  },
-  async updateOrthography(referenceNumber, orthographicDetails) {
-    const { rows } = await db.query(sql`
-      UPDATE entries
-      SET orthography = ${orthographicDetails}
-      WHERE reference_number = ${referenceNumber};
-    `)
-    return rows
   },
   search(query) {
     return new Promise((resolve, reject) => {

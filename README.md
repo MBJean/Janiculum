@@ -38,6 +38,11 @@ The backend of the application loosely follows the [Presentation Domain Data Lay
 
 Resources are exposed to the client via [GraphQL](https://developer.github.com/v4/). Experiment with building queries at `/graphql`.
 
+The application is deployed to [Heroku](www.heroku.com) with [CI](https://codeship.com/continuous-integration-essentials) support from [CircleCI](www.circleci.com).
+
+## Deployment
+TBD
+
 ## Database setup + management
 
 `npm run migrate up` will run the migrations.
@@ -55,3 +60,17 @@ Followed by:
 ```sh
 npm run migrate up
 ```
+
+To seed the database, run:
+```sh
+docker-compose run app bash
+```
+
+and, in that bash shell, run:
+```
+node -e 'require("./src/seeds/dictionary.js").init("_a.xml")'
+```
+
+once for each letterset (i.e., replacing `_a.xml` with each letter as found in `src/lib/latin-dictionary`).
+
+To migrate and seed the production, run `heroku run bash -a APP_NAME` followed by the above.

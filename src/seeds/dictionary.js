@@ -17,50 +17,6 @@ module.exports = {
         const entries = doc.getElementsByTagName('entryFree')
         for (let i = 0; i < entries.length; i++) {
           const entry = entries[i]
-          Entry.create(
-            entry.getAttribute('id'),
-            entry.getAttribute('key'),
-            XMLSerializer.serializeToString(entry)
-          )
-            .then(entry_id => {
-              process.stdout.write('.')
-              const definitions = entry.getElementsByTagName('sense')
-              for (let j = 0; j < definitions.length; j++) {
-                const definition = definitions[j]
-                const definition_id = Definition.create(
-                  entry_id,
-                  definition.getAttribute('id'),
-                  definition.getAttribute('level'),
-                  XMLSerializer.serializeToString(definition)
-                )
-                  .then(definition_id => {
-                    process.stdout.write('_')
-                  })
-                  .catch(error => {
-                    console.log(error)
-                  })
-              }
-            })
-            .catch(error => {
-              console.log(error)
-            })
-        }
-      }
-    )
-  },
-  addOrthographicDetails(file) {
-    fs.readFile(
-      __dirname + `/../lib/latin-dictionary/${file}`,
-      'utf8',
-      function(err, xml) {
-        if (err) {
-          console.log(err)
-          return
-        }
-        const doc = new DOMParser().parseFromString(xml)
-        const entries = doc.getElementsByTagName('entryFree')
-        for (let i = 0; i < entries.length; i++) {
-          const entry = entries[i]
 
           let orthFull = Array.prototype.filter.call(
             entry.getElementsByTagName('orth'),
@@ -101,9 +57,31 @@ module.exports = {
           const orthgraphicDetails = [orthFull, orthAlt, itype, pos, etym]
             .filter(detail => !!detail)
             .join(' ')
-          Entry.updateOrthography(entry.getAttribute('id'), orthgraphicDetails)
+
+          Entry.create(
+            entry.getAttribute('id'),
+            entry.getAttribute('key'),
+            XMLSerializer.serializeToString(entry),
+            orthgraphicDetails
+          )
             .then(entry_id => {
               process.stdout.write('.')
+              const definitions = entry.getElementsByTagName('sense')
+              for (let j = 0; j < definitions.length; j++) {
+                const definition = definitions[j]
+                const definition_id = Definition.create(
+                  entry_id,
+                  definition.getAttribute('id'),
+                  definition.getAttribute('level'),
+                  XMLSerializer.serializeToString(definition)
+                )
+                  .then(definition_id => {
+                    process.stdout.write('_')
+                  })
+                  .catch(error => {
+                    console.log(error)
+                  })
+              }
             })
             .catch(error => {
               console.log(error)
