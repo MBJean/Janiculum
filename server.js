@@ -1,6 +1,7 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql')
 const graphqlSchema = require('./src/graphql/schema.js')
+const cors = require('cors')
 
 const morgan = require('morgan');
 const clientSession = require('client-sessions');
@@ -23,10 +24,16 @@ app.use(
 );
 app.use(helmet());
 
+if (process.env.NODE_ENV !== 'production') {
+  app.use(cors())
+}
+
 app.use('/graphql', graphqlHTTP({
   schema: graphqlSchema,
   graphiql: true
 }))
+
+app.use(express.static('public'))
 
 app.get('/', function (req, res){
   if (req.session.userID) {

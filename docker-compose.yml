@@ -16,6 +16,15 @@ services:
       - .:/app/
       - /app/node_modules
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8001:8001"
+    volumes:
+      - "./frontend:/usr/src/nuxt-app:cached"
+
   postgres:
     image: postgres:10.4
     ports:

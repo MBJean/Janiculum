@@ -14,7 +14,7 @@ jobs:
           steps:
             - run: npm install
             - run: npm run prettier:check
-  deploy-to-production:
+  release:
     executor:
       name: docker/machine
     steps:
@@ -41,7 +41,7 @@ workflows:
     build-test-deploy:
       jobs:
         - build-and-test
-        - approve-deploy-to-production:
+        - approve-release:
             type: approval
             filters:
               branches:
@@ -49,9 +49,9 @@ workflows:
                   - master
             requires:
               - build-and-test
-        - deploy-to-production:
+        - release:
             requires:
-              - approve-deploy-to-production
+              - approve-release
             filters:
               branches:
                 only:
