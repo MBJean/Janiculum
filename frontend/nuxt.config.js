@@ -5,18 +5,18 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Janiculum: A Latin Learning Application',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { hid: 'description', name: 'description', content: 'Free-to-use Latin language learning tools, including a dictionary search, customizable vocabulary lists, and note-taking.' },
       { name: 'msapplication-TileColor', content: '#ffffff' },
       { name: 'msapplication-TileImage', content: '/ms-icon-144x144.png' },
       { name: 'theme-color', content: '#ffffff' },
     ],
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/png', href: '/favicon-32x32.png' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Chivo:400,700|Lato:400,700,900&display=swap' },
       { rel: 'apple-touch-icon', href: '57x57', sizes: '/apple-icon-57x57.png' },
       { rel: 'apple-touch-icon', href: '60x60', sizes: '/apple-icon-60x60.png' },
