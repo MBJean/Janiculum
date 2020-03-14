@@ -16,7 +16,11 @@ export default {
       { name: 'og:type', content: 'website' },
       { name: 'og:title', content: 'Janiculum: A Latin Learning Application' },
       { name: 'og:description', content: 'Free-to-use Latin language learning tools, including a dictionary search, customizable vocabulary lists, and note taking.' },
-      { name: 'og:url', content: 'https://janiculum.herokuapp.com' }
+      { name: 'og:url', content: 'https://janiculum.herokuapp.com' },
+      { name: 'og:image', content: '/janiculum-og-image.jpg' },
+      { name: 'og:image:type', content: 'image/jpeg' },
+      { name: 'og:image:width', content: '800' },
+      { name: 'og:image:height', content: '427' }
     ],
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
