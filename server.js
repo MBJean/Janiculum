@@ -25,7 +25,9 @@ app.use(
 app.use(helmet());
 
 if (process.env.NODE_ENV !== 'production') {
-  app.use(cors())
+  app.use(cors({
+    credentials: true,
+  }))
 }
 
 app.use('/graphql', graphqlHTTP({
@@ -36,10 +38,7 @@ app.use('/graphql', graphqlHTTP({
 app.use(express.static('public'))
 
 app.get('/', function (req, res){
-  if (req.session.userID) {
-    res.send('Welcome ' + req.session.userEmail + '! (<a href="/logout">logout</a>)');
-  }
-  res.send('You need to login.');
+  res.send('Welcome to local development!');
 });
 
 let server;

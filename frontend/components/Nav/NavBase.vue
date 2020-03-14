@@ -1,10 +1,35 @@
 <template>
   <nav class="layout__nav" role="navigation" aria-label="main navigation">
-    <a href="/">
+    <nuxt-link to="/">
       <img src="~/assets/images/logo.png">
-    </a>
+    </nuxt-link>
+    <ul v-if="authenticated">
+      <li>
+        <nuxt-link to="/logout">Log out</nuxt-link>
+      </li>
+    </ul>
+    <ul v-else="authenticated">
+      <li>
+        <nuxt-link to="/sign-in">Sign in</nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/sign-up">Sign up</nuxt-link>
+      </li>
+    </ul>
   </nav>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState({
+      authenticated: state => state.base.authenticated
+    })
+  }
+}
+</script>
 
 <style lang="scss" scoped="true">
 nav {
@@ -14,9 +39,12 @@ nav {
 }
 ul {
   display: flex;
-  * {
-    margin: 0 1rem;
-  }
+}
+li {
+  margin: 0 0.5rem;
+}
+li:last-child {
+  margin-right: 0;
 }
 img {
   height: $spacer-3;

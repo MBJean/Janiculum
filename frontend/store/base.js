@@ -1,11 +1,11 @@
 export default {
   state: () => ({
-    visibleEntry: null
+    authenticated: false,
   }),
   mutations: {
-    setVisibleEntry(state, entry) {
-      state.visibleEntry = entry;
-    }
+    setAuthenticated(state, status) {
+      state.authenticated = status;
+    },
   },
   actions: {
   }

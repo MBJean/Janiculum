@@ -28,16 +28,9 @@
     </div>
 
     <transition name="animate-fade">
-      <SidebarSearch
-        v-if="selected === OPTIONS.SEARCH"
-        @selectSuggestion="selectSuggestion"
-      />
-      <SidebarVocabularyList
-        v-else-if="selected === OPTIONS.VOCABULARY"
-      />
-      <SidebarNotes
-        v-else-if="selected === OPTIONS.NOTES"
-      />
+      <SidebarSearch v-if="selected === OPTIONS.SEARCH" />
+      <SidebarVocabularyList v-else-if="selected === OPTIONS.VOCABULARY" />
+      <SidebarNotes v-else-if="selected === OPTIONS.NOTES" />
     </transition>
   </aside>
 </template>
@@ -68,9 +61,6 @@ export default {
     select(option) {
       this.selected = option;
     },
-    selectSuggestion(entry) {
-      this.$store.commit('base/setVisibleEntry', entry);
-    }
   },
   computed: {
     OPTIONS() {

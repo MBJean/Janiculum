@@ -24,3 +24,21 @@
     font-size: $font-size-4;
   }
 }
+
+.button--primary {
+  background-color: $color-primary-2-2;
+  border-radius: $border-radius-small;
+  color: $color-primary-1-1;
+  padding: $spacer-1 $spacer-2;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    box-shadow: $box-shadow-standard;
+  }
+  &:focus {
+    background-color: $color-primary-2-1;
+  }
+  &:disabled {
+    color: $color-primary-1-3;
+  }
+}
