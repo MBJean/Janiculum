@@ -41,7 +41,8 @@ Resources are exposed to the client via [GraphQL](https://developer.github.com/v
 The application is deployed to [Heroku](www.heroku.com) with [CI](https://codeship.com/continuous-integration-essentials) support from [CircleCI](www.circleci.com).
 
 ## Deployment
-TBD
+Deployment is handled by [CircleCI](www.circleci.com). When you open a PR, CircleCI kicks off automated tests. Once all tests pass, you can merge your branch into master. You can release master into production at will by confirming the `approve-release` job in CircleCI.
+
 
 ## Database setup + management
 
