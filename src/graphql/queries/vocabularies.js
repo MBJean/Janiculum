@@ -8,7 +8,7 @@ const { getToken } = require('../../middleware/token-middleware')
 const Vocabularies = {
   type: new GraphQLList(VocabularyType),
   resolve: (source, {}, request) => {
-    const token = getToken(request);
+    const token = getToken(request)
     if (!token.payload || !token.payload.id) {
       throw new Error(USER_NOT_AUTHENTICATED)
     }

@@ -11,7 +11,7 @@ const Vocabulary = {
     id: { type: GraphQLString },
   },
   resolve: (source, { id }, request) => {
-    const token = getToken(request);
+    const token = getToken(request)
     if (!token.payload || !token.payload.id) {
       throw new Error(USER_NOT_AUTHENTICATED)
     }

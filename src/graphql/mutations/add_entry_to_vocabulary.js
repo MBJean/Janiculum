@@ -20,14 +20,11 @@ const addEntryToVocabulary = {
     if (!vocabularyID || !entryID) {
       throw new Error(MISSING_ARGUMENTS)
     }
-    const token = getToken(request);
+    const token = getToken(request)
     if (!token.payload || !token.payload.id) {
       throw new Error(USER_NOT_AUTHENTICATED)
     }
-    return VocabularyHelpers.checkViewAccess(
-      vocabularyID,
-      token.payload.id
-    )
+    return VocabularyHelpers.checkViewAccess(vocabularyID, token.payload.id)
       .then(hasViewAccess => {
         if (!hasViewAccess) {
           throw new Error(USER_WITHOUT_PERMISSIONS)

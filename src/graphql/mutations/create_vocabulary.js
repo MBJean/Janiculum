@@ -18,7 +18,7 @@ const createVocabulary = {
     if (!name) {
       throw new Error(MISSING_ARGUMENTS)
     }
-    const token = getToken(request);
+    const token = getToken(request)
     if (!token.payload || !token.payload.id) {
       throw new Error(USER_NOT_AUTHENTICATED)
     }

@@ -15,7 +15,7 @@ const UserType = new GraphQLObjectType({
     },
     token: {
       type: GraphQLString,
-    }
+    },
   },
 })
 

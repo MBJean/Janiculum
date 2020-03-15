@@ -32,11 +32,11 @@ const authenticateUser = {
           let token = jwt.sign(
             { id: user.id, email: user.email },
             config.SECRET,
-            { expiresIn: '744h'}
-          );
+            { expiresIn: '744h' }
+          )
           return {
             email: email,
-            token: token
+            token: token,
           }
         })
       })
