@@ -1,4 +1,4 @@
 export default function ({app, error}) {
-  const hasToken = app.$apolloHelpers.getToken('session')
-  console.log(hasToken)
+  const hasToken = !!app.$apolloHelpers.getToken()
+  return hasToken;
 }

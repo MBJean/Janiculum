@@ -83,7 +83,7 @@ export default {
   axios: {
   },
   apollo: {
-    tokenName: 'session',
+    tokenName: 'apollo-token',
     cookieAttributes: {
       /**
         * Define when the cookie will be removed. Value can be a Number
@@ -120,7 +120,11 @@ export default {
       },
     },
     router: {
-      middleware: ['is-authenticated', 'require-authentication']
+      middleware: [
+        'check-authentication',
+        'is-authenticated',
+        'require-authentication'
+      ]
     },
     // required
     clientConfigs: {

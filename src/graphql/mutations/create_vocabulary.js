@@ -1,12 +1,12 @@
 const graphql = require('graphql')
 const { GraphQLString } = graphql
-const setSessionData = require('../../helpers/set-session-data')
 const VocabularyType = require('../types/vocabulary_type')
 const Vocabulary = require('../../persistence/vocabularies')
 const {
   MISSING_ARGUMENTS,
   USER_NOT_AUTHENTICATED,
 } = require('../../helpers/error-messages')
+const { getToken } = require('../../middleware/token-middleware')
 
 const createVocabulary = {
   type: VocabularyType,
@@ -18,10 +18,11 @@ const createVocabulary = {
     if (!name) {
       throw new Error(MISSING_ARGUMENTS)
     }
-    if (!request.session.userID) {
+    const token = getToken(request);
+    if (!token.payload || !token.payload.id) {
       throw new Error(USER_NOT_AUTHENTICATED)
     }
-    return Vocabulary.create(name, description, request.session.userID)
+    return Vocabulary.create(name, description, token.payload.id)
       .then(id => id)
       .catch(err => err)
   },

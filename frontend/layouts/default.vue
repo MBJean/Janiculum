@@ -18,7 +18,7 @@ export default {
     NavBase,
     SidebarBase
   },
-  middleware: ['is-authenticated']
+  middleware: ['check-authenticated']
 }
 
 </script>

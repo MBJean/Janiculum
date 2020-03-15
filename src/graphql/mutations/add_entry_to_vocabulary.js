@@ -1,6 +1,5 @@
 const graphql = require('graphql')
 const { GraphQLBoolean, GraphQLString } = graphql
-const setSessionData = require('../../helpers/set-session-data')
 const VocabularyEntryType = require('../types/vocabulary_entry_type')
 const VocabulariesEntries = require('../../persistence/vocabularies_entries')
 const {
@@ -9,6 +8,7 @@ const {
   USER_WITHOUT_PERMISSIONS,
 } = require('../../helpers/error-messages')
 const VocabularyHelpers = require('../../persistence/helpers/vocabularies-helpers')
+const { getToken } = require('../../middleware/token-middleware')
 
 const addEntryToVocabulary = {
   type: VocabularyEntryType,
@@ -20,12 +20,13 @@ const addEntryToVocabulary = {
     if (!vocabularyID || !entryID) {
       throw new Error(MISSING_ARGUMENTS)
     }
-    if (!request.session.userID) {
+    const token = getToken(request);
+    if (!token.payload || !token.payload.id) {
       throw new Error(USER_NOT_AUTHENTICATED)
     }
     return VocabularyHelpers.checkViewAccess(
       vocabularyID,
-      request.session.userID
+      token.payload.id
     )
       .then(hasViewAccess => {
         if (!hasViewAccess) {

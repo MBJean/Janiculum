@@ -3,17 +3,20 @@
     <nuxt-link to="/">
       <img src="~/assets/images/logo.png">
     </nuxt-link>
-    <ul v-if="authenticated">
+    <ul v-if="auth">
       <li>
-        <nuxt-link to="/logout">Log out</nuxt-link>
+        <nuxt-link to="/dashboard" class="button button--nav">Dashboard</nuxt-link>
+      </li>
+      <li>
+        <button class="button button--nav" @click="logout">Log out</button>
       </li>
     </ul>
-    <ul v-else="authenticated">
+    <ul v-else>
       <li>
-        <nuxt-link to="/sign-in">Sign in</nuxt-link>
+        <nuxt-link to="/sign-in" class="button button--nav">Sign in</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/sign-up">Sign up</nuxt-link>
+        <nuxt-link to="/sign-up" class="button button--nav">Sign up</nuxt-link>
       </li>
     </ul>
   </nav>
@@ -25,8 +28,18 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      authenticated: state => state.base.authenticated
-    })
+      auth: state => state.base.auth
+    }),
+  },
+  methods: {
+    async logout() {
+      this.$apolloHelpers
+        .onLogout()
+        .then(response => {
+          this.$store.dispatch('base/logout')
+          this.$router.push('/')
+        })
+    }
   }
 }
 </script>

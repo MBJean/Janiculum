@@ -2,6 +2,8 @@
   <div class="layout__body">
     <div>
       <h1>Sign In</h1>
+      <p>Welcome back! Sign in to view your saved vocabulary lists and notes.</p>
+      <br/>
       <form class="card" @submit.prevent>
         <label class="form__container">
           <p class="form__label">Email</p>
@@ -9,6 +11,7 @@
             class="form__input"
             :value="email"
             @input="onChangeEmail"
+            @blur="onBlur"
           />
           <p v-if="errorFormat" class="form__help">Please use a valid email format (example@test.com)</p>
         </label>
@@ -53,10 +56,22 @@ export default {
   },
   methods: {
 
-    onChangeEmail: debounce(function(event) {
+    handleResponse({ email, token }) {
+      this.$apolloHelpers
+        .onLogin(token)
+        .then(response => {
+          this.$store.dispatch('base/login', { email })
+          this.$router.push('/dashboard')
+        })
+    },
+
+    onBlur() {
+      this.errorFormat = !emailValidator(this.email)
+    },
+
+    onChangeEmail(event) {
       this.email = event.target.value;
-      this.errorFormat = !emailValidator(event.target.value);
-    }, 500),
+    },
 
     onChangePassword(event) {
       this.password = event.target.value;
@@ -74,18 +89,22 @@ export default {
             password: this.password
           },
         })
-        .then(response => {
-          console.log('success!');
-          this.$store.commit('base/setAuthenticated', true);
+        .then(({ data }) => {
+          if (data.errors) {
+            throw new Error(data.errors.message)
+          }
+          this.handleResponse({
+            email: data.authenticateUser.email,
+            token: data.authenticateUser.token
+          })
         })
         .catch(error => {
-          console.log(error);
-          this.$store.commit('base/setAuthenticated', false);
+          this.errorCredentials = true
         })
         .finally(() => {
-          this.activeXHR = false;
+          this.activeXHR = false
         })
-    }
+    },
 
   },
   computed: {
