@@ -15,7 +15,6 @@ export default {
   },
   actions: {
     login({ commit }, { email }) {
-      console.log(email)
       Cookies.set('janiculum-user', email)
       commit('setEmail', email)
       commit('setAuth', true)
