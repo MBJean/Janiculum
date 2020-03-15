@@ -1,6 +1,5 @@
 const graphql = require('graphql')
 const { GraphQLBoolean, GraphQLString } = graphql
-const setSessionData = require('../../helpers/set-session-data')
 const VocabularyUserType = require('../types/vocabulary_user_type')
 const VocabulariesUsers = require('../../persistence/vocabularies_users')
 const {
@@ -20,10 +19,11 @@ const addUserToVocabulary = {
     if (!vocabularyID || !userID) {
       throw new Error(MISSING_ARGUMENTS)
     }
-    return VocabularyHelpers.checkAdminAccess(
-      vocabularyID,
-      request.session.userID
-    )
+    const token = getToken(request)
+    if (!token.payload || !token.payload.id) {
+      throw new Error(USER_NOT_AUTHENTICATED)
+    }
+    return VocabularyHelpers.checkAdminAccess(vocabularyID, token.payload.id)
       .then(hasAdminAccess => {
         if (!hasAdminAccess) {
           throw new Error(USER_WITHOUT_PERMISSIONS)

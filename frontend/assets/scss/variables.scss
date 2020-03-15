@@ -57,6 +57,8 @@ $breakpoint-desktop-large: 1200px;
 
 $box-shadow-standard: 0 0 1rem rgba(0, 0, 0, 0.1);
 
+$border-radius-small: 0.5rem;
+
 @mixin min-breakpoint($device) {
   @if $device == mobileLarge {
     @media (min-width: $breakpoint-mobile-large) { @content; }

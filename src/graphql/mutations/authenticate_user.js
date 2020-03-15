@@ -1,15 +1,16 @@
 const bcrypt = require('bcrypt')
 const graphql = require('graphql')
 const { GraphQLString } = graphql
-const setSessionData = require('../../helpers/set-session-data')
 const UserType = require('../types/user_type')
 const User = require('../../persistence/users')
 const {
   AUTHENTICATION_MISMATCH,
   MISSING_ARGUMENTS,
 } = require('../../helpers/error-messages')
+let jwt = require('jsonwebtoken')
+let config = require('../../../config.js')
 
-const createUser = {
+const authenticateUser = {
   type: UserType,
   args: {
     email: { type: GraphQLString },
@@ -28,12 +29,19 @@ const createUser = {
           if (!isMatch) {
             throw new Error(AUTHENTICATION_MISMATCH)
           }
-          setSessionData(request, user.id, user.email)
-          return user
+          let token = jwt.sign(
+            { id: user.id, email: user.email },
+            config.SECRET,
+            { expiresIn: '744h' }
+          )
+          return {
+            email: email,
+            token: token,
+          }
         })
       })
       .catch(err => err)
   },
 }
 
-module.exports = createUser
+module.exports = authenticateUser

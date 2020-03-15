@@ -1,12 +1,13 @@
 const graphql = require('graphql')
 const { GraphQLString } = graphql
-const setSessionData = require('../../helpers/set-session-data')
 const UserType = require('../types/user_type')
 const User = require('../../persistence/users')
 const {
   MISSING_ARGUMENTS,
   USER_ALREADY_EXISTS,
 } = require('../../helpers/error-messages')
+let jwt = require('jsonwebtoken')
+let config = require('../../../config.js')
 
 const createUser = {
   type: UserType,
@@ -23,8 +24,15 @@ const createUser = {
         if (!user) {
           throw new Error(USER_ALREADY_EXISTS)
         }
-        setSessionData(request, user.id, user.email)
-        return user
+        let token = jwt.sign(
+          { id: user.id, email: user.email },
+          config.SECRET,
+          { expiresIn: '744h' }
+        )
+        return {
+          email: email,
+          token: token,
+        }
       })
       .catch(err => err)
   },

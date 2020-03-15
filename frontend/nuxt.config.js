@@ -83,7 +83,7 @@ export default {
   axios: {
   },
   apollo: {
-    tokenName: 'yourApolloTokenName', // optional, default: apollo-token
+    tokenName: 'apollo-token',
     cookieAttributes: {
       /**
         * Define when the cookie will be removed. Value can be a Number
@@ -100,7 +100,7 @@ export default {
         * Define the domain where the cookie is available. Defaults to
         * the domain of the page where the cookie was created.
         */
-      domain: 'example.com', // optional
+      // domain: 'example.com', // optional
 
       /**
         * A Boolean indicating if the cookie transmission requires a
@@ -109,7 +109,7 @@ export default {
       secure: false,
     },
     includeNodeModules: true, // optional, default: false (this includes graphql-tag for node_modules folder)
-    authenticationType: 'Basic', // optional, default: 'Bearer'
+    authenticationType: 'Bearer', // optional, default: 'Bearer'
     // (Optional) Default 'apollo' definition
     defaultOptions: {
       // See 'apollo' definition
@@ -118,6 +118,13 @@ export default {
         loadingKey: 'loading',
         fetchPolicy: 'cache-and-network',
       },
+    },
+    router: {
+      middleware: [
+        'check-authentication',
+        'is-authenticated',
+        'require-authentication'
+      ]
     },
     // required
     clientConfigs: {

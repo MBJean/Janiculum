@@ -17,7 +17,8 @@ export default {
     FooterBase,
     NavBase,
     SidebarBase
-  }
+  },
+  middleware: ['check-authenticated']
 }
 
 </script>
