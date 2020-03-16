@@ -89,3 +89,9 @@ export default {
   mixins: [authenticationMixin]
 }
 </script>
+
+<style lang="scss" scoped="true">
+form {
+  max-width: 40rem;
+}
+</style>

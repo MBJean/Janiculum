@@ -18,9 +18,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped="true">
-h1 {
-  margin-bottom: $spacer-3;
-}
-</style>

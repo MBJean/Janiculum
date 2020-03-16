@@ -19,9 +19,3 @@ export default {
   middleware: ['require-authentication']
 }
 </script>
-
-<style lang="scss" scoped="true">
-h1 {
-  margin-bottom: $spacer-3;
-}
-</style>

@@ -10,31 +10,10 @@
   grid-template-rows: $spacer-5 auto auto auto;
   min-height: 100vh;
   @include min-breakpoint(tablet) {
-    grid-template-areas:
-      ". nav nav nav nav nav sidebar sidebar sidebar"
-      ". body body body body . sidebar sidebar sidebar"
-      ". footer footer footer footer footer sidebar sidebar sidebar";
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: $spacer-5 auto auto;
-  }
-}
-
-.layout--expanded-sidebar {
-  @include min-breakpoint(tablet) {
-    grid-template-areas:
-      ". nav nav nav sidebar sidebar sidebar sidebar sidebar"
-      ". body body body sidebar sidebar sidebar sidebar sidebar"
-      ". footer footer footer sidebar sidebar sidebar sidebar sidebar";
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: $spacer-5 auto auto;
-  }
-}
-
-.layout--closed-sidebar {
-  @include min-breakpoint(tablet) {
+    grid-gap: $spacer-2;
     grid-template-areas:
       ". nav nav nav nav nav nav nav ."
-      ". body body body body body body body ."
+      ". body body body body body sidebar sidebar ."
       ". footer footer footer footer footer footer footer .";
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: $spacer-5 auto auto;
@@ -47,13 +26,13 @@
 .layout__sidebar {
   padding: $spacer-1;
   transition: all 0.3s ease;
+  @include min-breakpoint(tablet) {
+    padding: 0;
+  }
 }
 
 .layout__body {
   grid-area: body;
-  @include min-breakpoint(tablet) {
-    min-height: calc(100vh);
-  }
 }
 
 .layout__footer {
@@ -66,4 +45,6 @@
 
 .layout__sidebar {
   grid-area: sidebar;
+  max-height: 100vh;
+  overflow-y: scroll;
 }
