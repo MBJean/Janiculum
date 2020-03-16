@@ -26,7 +26,7 @@ The default Docker `CMD` is `npm start`, [./docker-compose.yaml](./docker-compos
 
 ## Basic architecture
 
-The backend of the application is managed through an [Express.js](https://expressjs.com/) server with some minimal opinionated architecture, for which see below. The user-facing portions of the application are built using the [Nuxt.js framework](https://nuxtjs.org/) in its [static rendering mode](https://nuxtjs.org/guide/commands#static-generated-deployment-pre-rendered-). The resulting build is then copied over to the `src/static` directory and served up by the Express server. A future iteration of this application should see the static assets deployed to a CDN independently.
+The backend of the application is managed through an [Express.js](https://expressjs.com/) server with some minimal opinionated architecture, for which see below. The user-facing portions of the application are built using the [Nuxt.js framework](https://nuxtjs.org/) in its [static rendering mode](https://nuxtjs.org/guide/commands#static-generated-deployment-pre-rendered-). The resulting build is then copied over to the `src/public` directory and served up by the Express server. A future iteration of this application should see the static assets deployed to a CDN independently.
 
 Global concerns like security, cookie parsing, body parsing and request logging are handled in [./server.js](./server.js).
 
