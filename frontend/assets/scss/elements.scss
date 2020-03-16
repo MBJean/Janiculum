@@ -40,8 +40,19 @@ h3, .h--3 {
   }
 }
 
-p, .p,
-a, .a {
+p, .p {
   font-size: $font-size-4;
   line-height: 1.4;
+}
+
+a, .a {
+  color: $color-primary-1-1;
+}
+
+.p--small {
+  font-sizew: $font-size-5;
+}
+
+i {
+  font-style: italic;
 }
