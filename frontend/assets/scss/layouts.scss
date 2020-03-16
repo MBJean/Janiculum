@@ -9,7 +9,16 @@
   grid-template-columns: 1fr;
   grid-template-rows: $spacer-5 auto auto auto;
   min-height: 100vh;
-  @include min-breakpoint(tablet) {
+  @include min-breakpoint(desktop) {
+    grid-gap: $spacer-2;
+    grid-template-areas:
+      "nav nav nav nav nav nav nav nav nav"
+      "body body body body body body sidebar sidebar sidebar"
+      "footer footer footer footer footer footer footer footer footer";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: $spacer-5 auto auto;
+  }
+  @include min-breakpoint(desktopLarge) {
     grid-gap: $spacer-2;
     grid-template-areas:
       ". nav nav nav nav nav nav nav ."
@@ -27,6 +36,12 @@
   padding: $spacer-1;
   transition: all 0.3s ease;
   @include min-breakpoint(tablet) {
+    padding: $spacer-2;
+  }
+  @include min-breakpoint(desktop) {
+    padding: $spacer-1;
+  }
+  @include min-breakpoint(desktopLarge) {
     padding: 0;
   }
 }
