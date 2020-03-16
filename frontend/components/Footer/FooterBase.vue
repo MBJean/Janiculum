@@ -6,6 +6,10 @@ Data accessed from <a href="https://github.com/PerseusDL/lexica/" target="_blank
 </template>
 
 <style lang="scss" scoped="true">
+footer {
+  padding-bottom: $spacer-2;
+  padding-top: $spacer-2;
+}
 p {
   font-size: $font-size-5;
 }
