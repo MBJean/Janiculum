@@ -3,7 +3,8 @@ const Cookies = require('js-cookie')
 export default {
   state: () => ({
     auth: false,
-    email: null
+    email: null,
+    toolkitOpen: false,
   }),
   mutations: {
     setAuth(state, status) {
@@ -11,6 +12,9 @@ export default {
     },
     setEmail(state, email) {
       state.email = email
+    },
+    setToolkitOpen(state, status) {
+      state.toolkitOpen = status
     }
   },
   actions: {
@@ -23,6 +27,9 @@ export default {
       Cookies.remove('janiculum-user')
       commit('setEmail', null)
       commit('setAuth', false)
+    },
+    toggleToolkit({ commit, state }) {
+      commit('setToolkitOpen', !state.toolkitOpen)
     }
   }
 }

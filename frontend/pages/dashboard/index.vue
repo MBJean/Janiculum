@@ -2,7 +2,8 @@
   <div class="layout__body">
     <div>
       <h1>Dashboard</h1>
-      <p>Welcome back {{ email }}. Functionality coming soon.</p>
+      <p>Welcome back {{ email }}.</p>
+      <p>Dashboard functionality coming soon.</p>
     </div>
   </div>
 </template>

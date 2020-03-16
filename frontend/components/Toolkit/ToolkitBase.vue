@@ -1,12 +1,17 @@
 <template>
-  <aside class="layout__toolkit">
+  <aside class="toolkit" v-on-clickaway="close">
+    <div class="align--right">
+      <button class="button" @click="close">
+        <i class="material-icons">close</i>
+      </button>
+    </div>
     <div class="buttons">
       <button
         class="button"
         :class="{'button--active': selected === OPTIONS.SEARCH}"
         @click="select(OPTIONS.SEARCH)"
       >
-        <i class="material-icons">search</i>
+        <i class="material-icons">library_books</i>
         <span>Dictionary</span>
       </button>
       <button
@@ -15,7 +20,7 @@
         @click="select(OPTIONS.VOCABULARY)"
       >
         <i class="material-icons">format_list_bulleted</i>
-        <span>Vocab</span>
+        <span>Vocabulary</span>
       </button>
       <button
         class="button"
@@ -36,6 +41,7 @@
 </template>
 
 <script>
+import { mixin as clickaway } from 'vue-clickaway';
 import ToolkitSearch from '~/components/Toolkit/ToolkitSearch.vue';
 import ToolkitVocabularyList from '~/components/Toolkit/ToolkitVocabularyList.vue';
 import ToolkitNotes from '~/components/Toolkit/ToolkitNotes.vue';
@@ -58,6 +64,9 @@ export default {
     };
   },
   methods: {
+    close() {
+      this.$store.dispatch('base/toggleToolkit')
+    },
     select(option) {
       this.selected = option;
     },
@@ -66,19 +75,32 @@ export default {
     OPTIONS() {
       return OPTIONS;
     }
-  }
+  },
+  mixins: [
+    clickaway
+  ],
 }
 
 </script>
 
 <style lang="scss" scoped="true">
-aside {
+.toolkit {
   background-color: $color-primary-1-4;
   box-shadow: $box-shadow-standard;
-  @include min-breakpoint(mobileLarge) {
-    // animation: aside-in 0.5s ease;
-    padding-top: $spacer-7;
+  height: 100vh;
+  max-width: calc(100% - 4rem);
+  overflow-y: scroll;
+  padding: $spacer-1;
+  position: fixed;
+  right: 0;
+  width: 90%;
+  z-index: 100;
+  @include min-breakpoint(tablet) {
+    width: 30%;
   }
+}
+.toolkit__inner {
+
 }
 .buttons {
   align-items: center;
@@ -88,6 +110,7 @@ aside {
 }
 button {
   border-bottom: 0.25rem transparent solid;
+  flex: 1;
   max-width: 33%;
   padding: $spacer-1 0;
   transition: border-bottom 0.2s ease;

@@ -4,6 +4,8 @@
       <h1>Janiculum: <br/> A Latin Learning Application</h1>
       <p>Welcome to Janiculum! This website is a digital playground for its creator to explore new web technologies, with the ultimate goal of aiding the student of Latin in their language learning journey.</p>
       <h2>Feature proposals</h2>
+      <p>Access the current state of the proposed features by clicking on the <strong><span class="hide">Toggle</span> Toolkit</strong> button above.</p>
+      <br/>
       <ul>
         <li class="card card--red">
           <h3>Latin dictionary</h3>
@@ -36,6 +38,12 @@ ul {
       margin-bottom: 0;
       margin-right: $spacer-1;
     }
+  }
+}
+.hide {
+  display: none;
+  @include min-breakpoint(tablet) {
+    display: inline;
   }
 }
 </style>

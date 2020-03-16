@@ -25,4 +25,7 @@ entryfree {
   sense[level="5"] {
     padding-left: $spacer-5;
   }
+  sense:last-child {
+    margin-bottom: $spacer-3;
+  }
 }
