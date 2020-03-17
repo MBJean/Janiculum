@@ -5,16 +5,7 @@ orbs:
   node: circleci/node@1.1.6
 
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm run prettier:check
-  release:
+  setup-heroku:
     executor:
       name: docker/machine
     steps:
@@ -31,27 +22,79 @@ jobs:
           name: Login into Heroku Docker Repository
           command: |
             docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+  build:
+    executor:
+      name: docker/machine
+    steps:
+      - checkout
       - run:
           name: Deploy Heroku Docker Container
           command: |
             heroku container:push web -a $HEROKU_APP_NAME
+            heroku container:push web -a $HEROKU_APP_STAGING_NAME
+  test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm run prettier:check
+  release-to-staging:
+    executor:
+      name: docker/machine
+    steps:
+      - checkout
+      - run:
+          name: Deploy Heroku Docker Container
+          command: |
+            heroku container:release web -a $HEROKU_APP_STAGING_NAME
+  release-to-production:
+    executor:
+      name: docker/machine
+    steps:
+      - checkout
+      - run:
+          name: Deploy Heroku Docker Container
+          command: |
             heroku container:release web -a $HEROKU_APP_NAME
 
 workflows:
     build-test-deploy:
       jobs:
-        - build-and-test
-        - approve-release:
+        - setup-heroku
+        - test
+        - build:
+          requires:
+            - setup-heroku
+            - test
+        - approve-release-to-staging:
+          type: approval
+            filters:
+              branches:
+                ignore:
+                  - master
+            requires:
+              - build
+        - release-to-staging:
+            requires:
+              - approve-release-to-staging
+            filters:
+              branches:
+                ignore:
+                  - master
+        - approve-release-to-production:
             type: approval
             filters:
               branches:
                 only:
                   - master
             requires:
-              - build-and-test
-        - release:
+              - build
+        - release-to-production:
             requires:
-              - approve-release
+              - approve-release-to-production
             filters:
               branches:
                 only:
