@@ -78,31 +78,15 @@ workflows:
               - authenticate-heroku
         - approve-release-to-staging:
             type: approval
-            filters:
-              branches:
-                ignore:
-                  - master
             requires:
               - build
         - release-to-staging:
             requires:
               - approve-release-to-staging
-            filters:
-              branches:
-                ignore:
-                  - master
         - approve-release-to-production:
             type: approval
-            filters:
-              branches:
-                only:
-                  - master
             requires:
               - build
         - release-to-production:
             requires:
               - approve-release-to-production
-            filters:
-              branches:
-                only:
-                  - master
