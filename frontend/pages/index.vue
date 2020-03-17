@@ -7,17 +7,20 @@
       <p>Access the current state of the proposed features by clicking on the <strong><span class="hide">Toggle</span> Toolkit</strong> button above.</p>
       <br/>
       <ul>
-        <li class="card card--red">
+        <li class="card card--purple">
           <h3>Latin dictionary</h3>
           <p>Search <i>Lewis & Short's Latin Dictionary</i>.</p>
+          <span class="status">Completed</span>
         </li>
-        <li class="card card--green">
+        <li class="card card--grey">
           <h3>Vocabulary lists</h3>
           <p>Create and share custom vocabulary lists composed of entries from <i>Lewis & Short's Latin Dictionary</i>.</p>
+          <span class="status">Coming soon</span>
         </li>
-        <li class="card card--blue">
+        <li class="card card--grey">
           <h3>Notes</h3>
           <p>Create notes keyed to vocabulary and Latin texts.</p>
+          <span class="status">Coming soon</span>
         </li>
       </ul>
     </div>
@@ -45,5 +48,15 @@ ul {
   @include min-breakpoint(tablet) {
     display: inline;
   }
+}
+.card {
+  position: relative;
+}
+.status {
+  color: $color-primary-1-1;
+  font-size: $font-size-5;
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
 }
 </style>
