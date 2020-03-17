@@ -7,7 +7,7 @@
       <p>Access the current state of the proposed features by clicking on the <strong><span class="hide">Toggle</span> Toolkit</strong> button above.</p>
       <br/>
       <ul>
-        <li class="card card--green">
+        <li class="card card--green cursor--pointer" @click="$store.dispatch('base/toggleToolkit')">
           <h3>Latin dictionary</h3>
           <p>Search <i>Lewis & Short's Latin Dictionary</i>.</p>
           <span class="status">Completed</span>
