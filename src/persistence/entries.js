@@ -10,7 +10,7 @@ module.exports = {
     const id = uuid()
     await db.query(sql`
     INSERT INTO entries (id, reference_number, lemma, body, orthography)
-      VALUES (${id}, ${reference_number}, ${lemma}, ${body}, ${orthography});
+      VALUES (${id}, ${reference_number}, ${lemma}, ${body}, ${orthographicDetails});
     `)
     return id
   },
