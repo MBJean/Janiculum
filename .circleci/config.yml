@@ -5,16 +5,7 @@ orbs:
   node: circleci/node@1.1.6
 
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm run prettier:check
-  release:
+  authenticate-heroku:
     executor:
       name: docker/machine
     steps:
@@ -27,6 +18,11 @@ jobs:
             else
               echo "Heroku is already installed. No operation was performed."
             fi
+  build:
+    executor:
+      name: docker/machine
+    steps:
+      - checkout
       - run:
           name: Login into Heroku Docker Repository
           command: |
@@ -35,24 +31,65 @@ jobs:
           name: Deploy Heroku Docker Container
           command: |
             heroku container:push web -a $HEROKU_APP_NAME
+            heroku container:push web -a $HEROKU_APP_STAGING_NAME
+  test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm run prettier:check
+  release-to-staging:
+    executor:
+      name: docker/machine
+    steps:
+      - checkout
+      - run:
+          name: Login into Heroku Docker Repository
+          command: |
+            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+      - run:
+          name: Deploy Heroku Docker Container
+          command: |
+            heroku container:release web -a $HEROKU_APP_STAGING_NAME
+  release-to-production:
+    executor:
+      name: docker/machine
+    steps:
+      - checkout
+      - run:
+          name: Login into Heroku Docker Repository
+          command: |
+            docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+      - run:
+          name: Deploy Heroku Docker Container
+          command: |
             heroku container:release web -a $HEROKU_APP_NAME
 
 workflows:
     build-test-deploy:
       jobs:
-        - build-and-test
-        - approve-release:
+        - authenticate-heroku
+        - test
+        - approve-build:
             type: approval
-            filters:
-              branches:
-                only:
-                  - master
+        - build:
             requires:
-              - build-and-test
-        - release:
+              - authenticate-heroku
+              - approve-build
+        - approve-release-to-staging:
+            type: approval
             requires:
-              - approve-release
-            filters:
-              branches:
-                only:
-                  - master
+              - build
+        - release-to-staging:
+            requires:
+              - approve-release-to-staging
+        - approve-release-to-production:
+            type: approval
+            requires:
+              - build
+        - release-to-production:
+            requires:
+              - approve-release-to-production

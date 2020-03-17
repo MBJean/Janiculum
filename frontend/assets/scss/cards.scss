@@ -4,6 +4,10 @@
   padding: $spacer-1;
 }
 
+.card--purple {
+  background-color: $color-primary-1-4;
+}
+
 .card--red {
   background-color: $color-secondary-1-4;
 }
@@ -14,4 +18,8 @@
 
 .card--blue {
   background-color: $color-secondary-3-4;
+}
+
+.card--grey {
+  background-color: $color-primary-3-4;
 }
