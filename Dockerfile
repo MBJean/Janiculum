@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN cd frontend && npm install
+RUN cd frontend && npm install && npm run generate
 
 EXPOSE 8000
 
