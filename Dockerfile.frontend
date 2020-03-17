@@ -1,0 +1,21 @@
+FROM node:10
+
+WORKDIR /app
+
+COPY ./frontend/package*.json ./
+RUN npm install
+
+# Copying source files
+COPY ./frontend .
+
+RUN npm run build
+
+# expose 8001 on container
+EXPOSE 8001
+
+# set app serving to permissive / assigned
+ENV NUXT_HOST=0.0.0.0
+# set app port
+ENV NUXT_PORT=8001
+
+CMD [ "npm", "run", "dev" ]
