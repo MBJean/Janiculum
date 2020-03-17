@@ -73,9 +73,12 @@ workflows:
       jobs:
         - authenticate-heroku
         - test
+        - approve-build:
+            type: approval
         - build:
             requires:
               - authenticate-heroku
+              - approve-build
         - approve-release-to-staging:
             type: approval
             requires:

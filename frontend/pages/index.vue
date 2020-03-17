@@ -7,17 +7,17 @@
       <p>Access the current state of the proposed features by clicking on the <strong><span class="hide">Toggle</span> Toolkit</strong> button above.</p>
       <br/>
       <ul>
-        <li class="card card--purple">
+        <li class="card card--green">
           <h3>Latin dictionary</h3>
           <p>Search <i>Lewis & Short's Latin Dictionary</i>.</p>
           <span class="status">Completed</span>
         </li>
-        <li class="card card--grey">
+        <li class="card card--purple">
           <h3>Vocabulary lists</h3>
           <p>Create and share custom vocabulary lists composed of entries from <i>Lewis & Short's Latin Dictionary</i>.</p>
           <span class="status">Coming soon</span>
         </li>
-        <li class="card card--grey">
+        <li class="card card--purple">
           <h3>Notes</h3>
           <p>Create notes keyed to vocabulary and Latin texts.</p>
           <span class="status">Coming soon</span>
