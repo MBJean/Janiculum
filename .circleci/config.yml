@@ -66,9 +66,9 @@ workflows:
         - setup-heroku
         - test
         - build:
-          requires:
-            - setup-heroku
-            - test
+            requires:
+              - setup-heroku
+              - test
         - approve-release-to-staging:
             type: approval
             filters:
