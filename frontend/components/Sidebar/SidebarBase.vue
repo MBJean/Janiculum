@@ -11,6 +11,8 @@ aside {
   max-height: 100vh;
   overflow-y: hidden;
   position: relative;
+  background-color: $color-primary-1-4;
+  padding: $spacer-1;
 }
 
 .sidebar__container {
@@ -18,14 +20,5 @@ aside {
   overflow-y: scroll;
 }
 
-aside::after {
-  background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
-  bottom: 0;
-  content: '';
-  height: 2rem;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-}
+
 </style>
