@@ -14,21 +14,4 @@ module.exports = {
     `)
     return id
   },
-  async search(query) {
-    const { rows } = await db.query(sql`
-      SELECT
-        stems.body
-      FROM
-        stems
-      INNER JOIN
-        senses
-      ON
-        senses.stem_id = stems.id
-      WHERE
-        to_tsvector(senses.body) @@ to_tsquery(${query})
-      LIMIT
-        200;
-    `)
-    return rows.map(entry => entry.body)
-  },
 }

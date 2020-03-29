@@ -1,7 +1,3 @@
-.form {
-
-}
-
 .form__container {
   display: block;
   margin-bottom: $spacer-1;
@@ -30,6 +26,7 @@
 
 .form__list {
   box-shadow: $box-shadow-standard;
+  margin-bottom: $spacer-1;
   margin-top: -1rem;
 }
 
@@ -62,4 +59,72 @@
 
 .form__error {
   color: $color-secondary-1-1;
+}
+
+.form__toggle {
+  align-items: center;
+  display: inline-flex;
+  cursor: pointer;
+  font-family: $font-body;
+  -webkit-tap-highlight-color: transparent;
+  > :not(:last-child) {
+    margin-right: 0.5rem;
+  }
+}
+.form__toggle-input,
+.form__toggle-input:checked {
+  height: 0;
+  opacity: 0;
+  position: absolute;
+  width: 0;
+}
+.form__toggle-bar {
+  background-color: $color-primary-1-3;
+  border-radius: 2rem;
+  display: inline-block;
+  height: 25px;
+  position: relative;
+  transition: background-color 0.3s ease-in-out;
+  width: 46px;
+}
+.form__toggle-decoration {
+  background-color: white;
+  border-radius: 50%;
+  height: 19px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  transition: all 0.3s ease-in-out;
+  width: 19px;
+  z-index: 2;
+}
+.form__toggle-ripple {
+  position: absolute;
+  left: calc(50% - 2.2rem);
+  top: calc(50% - 1.5rem);
+  height: 3rem;
+  width: 3rem;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  transition: all 0.3s ease-in-out;
+  background-color: $color-primary-1-3;
+  opacity: 0;
+}
+.form__toggle-input:checked + .form__toggle-bar {
+  // background-color: $color-primary-2-3;
+  .form__toggle-ripple {
+    // background-color: $color-primary-2-3;
+  }
+}
+.form__toggle-input:checked ~ .form__toggle-bar {
+  .form__toggle-decoration,
+  .form__toggle-ripple {
+    transform: translateX(1.3rem);
+  }
+}
+.form__toggle-input:focus ~ .form__toggle-bar {
+  .form__toggle-ripple {
+    opacity: 0.12;
+  }
 }
