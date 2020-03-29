@@ -7,10 +7,10 @@ const Pairings = require('../lib/english-to-latin/english-latin-pairings.json')
 module.exports = {
   async init() {
     Pairings.forEach(pair => {
-      Stem.create(pair["stem"])
+      Stem.create(pair['stem'])
         .then(stem_id => {
           process.stdout.write('.')
-          pair["senses"].forEach(sense => {
+          pair['senses'].forEach(sense => {
             Sense.create(sense, stem_id)
               .then(() => {
                 process.stdout.write('_')
