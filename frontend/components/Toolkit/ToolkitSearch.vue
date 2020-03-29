@@ -10,7 +10,7 @@
 
     <FormInputText
       v-if="englishSelected"
-      :label="'Search for Latin stems using English'"
+      :label-text="'Search for Latin stems using English'"
       :placeholder="'ex. house'"
       :value="queryEnglish"
       @onChange="onChangeEnglish"
@@ -18,7 +18,7 @@
 
     <FormInputText
       v-else
-      :label="'Search Latin dictionary'"
+      :label-text="'Search Latin dictionary'"
       :placeholder="'ex. domus'"
       :value="query"
       @onChange="onChange"
@@ -220,10 +220,8 @@ export default {
 </script>
 
 <style lang="scss" scoped="true">
-p {
-  font-size: $font-size-5;
-}
 .help {
+  font-size: $font-size-5;
   padding: $spacer-1;
 }
 .help__base {

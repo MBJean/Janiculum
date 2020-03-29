@@ -20,3 +20,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped="true">
+p {
+  font-size: $font-size-5;
+  line-height: 1.25;
+  margin-bottom: $spacer-1;
+  margin-top: $spacer-1;
+}
+</style>
