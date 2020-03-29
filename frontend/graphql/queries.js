@@ -12,4 +12,11 @@ export default {
       }
     }
   `,
+  STEM_SEARCH: gql`
+    query Senses($query: String!) {
+    	senses(query: $query) {
+        body
+      }
+    }
+  `,
 }

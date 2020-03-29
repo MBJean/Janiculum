@@ -47,6 +47,12 @@
   }
 }
 
-.button--nav {
-  
+.button--text {
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  border-radius: none;
+  font-weight: normal;
+  padding: 0;
+  text-decoration: underline;
 }
