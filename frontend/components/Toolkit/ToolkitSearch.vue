@@ -1,81 +1,51 @@
 <template>
   <div v-on-clickaway="close">
 
-    <label class="form__toggle">
-      <span class="form__toggle-text" :class="{'font--bold': !englishSelected}" aria-hidden="true">Latin</span>
-      <input
-        type="checkbox"
-        name="generic"
-        value="true"
-        ref="input"
-        class="form__toggle-input"
-        aria-labelledby="generic-toggle-label"
-        :checked="englishSelected"
-        @change="toggleEnglishSelected"
-      />
-      <div class="form__toggle-bar" aria-hidden="true">
-        <span class="form__toggle-ripple" />
-        <span class="form__toggle-decoration" />
-      </div>
-      <span class="form__toggle-text" :class="{'font--bold': englishSelected}" aria-hidden="true">English</span>
-    </label>
+    <FormInputToggle
+      :label-left="'Latin'"
+      :label-right="'English'"
+      :toggled="englishSelected"
+      @toggle="toggleEnglishSelected"
+    />
 
-    <label class="form__container">
-      <p v-if="englishSelected" class="form__label">Search for Latin stems using English</p>
-      <p v-else class="form__label">Search Latin dictionary</p>
-      <input
-        v-if="englishSelected"
-        class="form__input"
-        :value="queryEnglish"
-        @input="onChangeEnglish"
-      />
-      <input
-        v-else
-        class="form__input"
-        :value="query"
-        @input="onChange"
-        @focus="onFocusLatin"
-      />
-    </label>
+    <FormInputText
+      v-if="englishSelected"
+      :label="'Search for Latin stems using English'"
+      :placeholder="'ex. house'"
+      :value="queryEnglish"
+      @onChange="onChangeEnglish"
+    />
+
+    <FormInputText
+      v-else
+      :label="'Search Latin dictionary'"
+      :placeholder="'ex. domus'"
+      :value="query"
+      @onChange="onChange"
+      @onFocus="onFocusLatin"
+    />
 
     <p v-if="searching" class="help help__searching">Searching...</p>
     <p v-else-if="error" class="help help__error">Sorry, an error occurred. Please try again</p>
     <p v-else-if="help" class="help help__base">{{ help }}</p>
 
-    <ol
+    <FormInputDropdown
       v-else-if="suggestions && suggestions.length && open"
-      class="form__list"
-    >
-      <li
-        v-for="suggestion in suggestions"
-        class="form__list-item"
-        @click="onClickSuggestion(suggestion)"
-      >
-        <div class="text--overflow">
-          <span>{{ suggestion.orthography }}</span>
-        </div>
-      </li>
-    </ol>
+      :suggestions="suggestions"
+      :suggestion-property="'orthography'"
+      @onClick="onClickSuggestion"
+    />
 
     <EntryBase
       v-if="!englishSelected && selection"
       :body="selection.body"
     />
 
-    <p v-if="englishSelected && stemSuggestions.length">
-      <span class="font--bold">Possible stems:</span>
-      <span v-for="(suggestion, index) in stemSuggestions">
-        <button
-          v-if="index < stemSuggestions.length - 1"
-          class="button button--text"
-          @click="selectStemSuggestion(suggestion)"
-        >
-          <span :class="{'margin__right--quarter': index < stemSuggestions.length - 2 }">
-            {{ suggestion }}{{ index < stemSuggestions.length - 2 ? ', ': '' }}
-          </span>
-        </button>
-      </span>
-    </p>
+    <EntryStems
+      v-else-if="englishSelected && stemSuggestions.length"
+      :suggestions="stemSuggestions"
+      @onSelect="selectStemSuggestion"
+    />
   </div>
 </template>
 
@@ -83,6 +53,10 @@
 import QUERIES from '~/graphql/queries'
 import * as debounce from 'lodash.debounce'
 import EntryBase from '~/components/Entry/EntryBase.vue'
+import EntryStems from '~/components/Entry/EntryStems.vue'
+import FormInputDropdown from '~/components/Form/FormInputDropdown.vue'
+import FormInputText from '~/components/Form/FormInputText.vue'
+import FormInputToggle from '~/components/Form/FormInputToggle.vue'
 import { mixin as clickaway } from 'vue-clickaway';
 
 const HELP_MESSAGES = {
@@ -91,7 +65,11 @@ const HELP_MESSAGES = {
 
 export default {
   components: {
-    EntryBase
+    EntryBase,
+    EntryStems,
+    FormInputDropdown,
+    FormInputText,
+    FormInputToggle,
   },
   data() {
     return {
@@ -118,15 +96,13 @@ export default {
       this.open = false;
     },
 
-    onChange: debounce(function(event) {
-      const query = event.target.value;
-      this.query = query;
+    onChange: debounce(function(value) {
+      this.query = value;
       this.searchDictionary();
     }, 1000),
 
-    onChangeEnglish: debounce(function(event) {
-      const query = event.target.value;
-      this.queryEnglish = query;
+    onChangeEnglish: debounce(function(value) {
+      this.queryEnglish = value;
       this.searchEnglish();
     }, 1000),
 
@@ -244,9 +220,6 @@ export default {
 </script>
 
 <style lang="scss" scoped="true">
-li {
-  cursor: pointer;
-}
 p {
   font-size: $font-size-5;
 }

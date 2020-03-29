@@ -32,6 +32,7 @@
 
 .form__list-item {
   background-color: $color-primary-4-1;
+  cursor: pointer;
   margin-bottom: 0;
   padding: $spacer-1;
   &:not(:last-child) {
