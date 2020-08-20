@@ -23,7 +23,7 @@
   "author": "Michael Jean",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "client-sessions": "^0.8.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
