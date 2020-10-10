@@ -23,7 +23,7 @@
   "author": "Michael Jean",
   "license": "MIT",
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcrypt": "^3.0.6",
     "client-sessions": "^0.8.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
@@ -44,8 +44,8 @@
     "xmlserializer": "^0.6.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4",
+    "nodemon": "^1.18.11",
     "prettier": "1.19.1",
-    "xo": "^0.33.1"
+    "xo": "^0.24.0"
   }
 }
