@@ -19,10 +19,10 @@
     "js-cookie": "^2.2.1",
     "lodash.debounce": "^4.0.8",
     "nuxt": "^2.14.6",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-clickaway": "^2.2.2",
     "vue-server-renderer": "^2.6.12",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
     "@nuxtjs/google-analytics": "^2.4.0",
