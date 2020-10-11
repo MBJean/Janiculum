@@ -1,6 +1,7 @@
 const sql = require('sql-template-strings')
 const uuid = require('uuid/v4')
 const db = require('./db')
+const Author = require('./authors')
 const TextQuery = require('./text_queries')
 
 module.exports = {
@@ -23,27 +24,31 @@ module.exports = {
     `)
     return rows[0]
   },
-  async search(author_id, title) {
+  async search(author_name, title) {
+    const { id } = await Author.search(author_name)
+    if (!id) return null
     const { rows } = await db.query(sql`
-    SELECT * FROM texts WHERE author_id = ${author_id} AND title = ${title};
+    SELECT * FROM texts WHERE author_id = ${id} AND title = ${title};
     `)
     return rows[0]
   },
   async query(id, xpathQuery) {
     const existingQuery = await TextQuery.search(id, xpathQuery)
     if (existingQuery) {
+      console.log('=== returning existing query ===')
       return existingQuery.response
     }
     const { rows } = await db.query(
       'SELECT xpath($1, body)::varchar[] FROM public.texts WHERE id = $2',
       [xpathQuery, id]
     )
-    const xml = rows[0].xpath
-    if (xml.length) {
-      const stringifiedResponse = JSON.stringify(xml)
-      await TextQuery.create(id, xpathQuery, stringifiedResponse)
-      return xml
+    const stringifiedXml = rows[0].xpath[0]
+    if (stringifiedXml) {
+      await TextQuery.create(id, xpathQuery, stringifiedXml)
+      console.log('=== returning new query ===')
+      return stringifiedXml
     }
+    console.log('=== no match ===')
     return null
   },
   async delete(id) {
