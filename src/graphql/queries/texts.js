@@ -3,6 +3,20 @@ const { GraphQLList, GraphQLString } = graphql
 const TextType = require('../types/text_type')
 const Text = require('../../persistence/texts')
 
+const AUTHORS = ['ovid']
+const TITLES = ['amores']
+
+const inputGuard = function(author, title, book, poem) {
+  const poemIsLegitimate = poem === 'ep' || parseInt(poem)
+  const bookIsLegitimate = parseInt(book)
+  const titleIsLegitimate = TITLES.includes(title)
+  const authorIsLegitimate = AUTHORS.includes(author)
+  return poemIsLegitimate &&
+         bookIsLegitimate &&
+         titleIsLegitimate &&
+         authorIsLegitimate
+}
+
 const Texts = {
   type: TextType,
   args: {
@@ -12,6 +26,10 @@ const Texts = {
     poem: { type: GraphQLString },
   },
   resolve: async (source, { author, title, book, poem }) => {
+    const isInputSafe = inputGuard(author, title, book, poem)
+    if (!isInputSafe) return {
+      xml: null, errors: ['input guard']
+    }
     try {
       const text = await Text.search(author, title)
       if (!text) {
