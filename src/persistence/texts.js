@@ -1,6 +1,7 @@
 const sql = require('sql-template-strings')
 const uuid = require('uuid/v4')
 const db = require('./db')
+const TextQuery = require('./text_queries')
 
 module.exports = {
   async find_or_create(author_id, title, display_title, body) {
@@ -29,12 +30,21 @@ module.exports = {
     return rows[0]
   },
   async query(id, xpathQuery) {
+    const existingQuery = await TextQuery.search(id, xpathQuery)
+    if (existingQuery) {
+      return existingQuery.response
+    }
     const { rows } = await db.query(
       'SELECT xpath($1, body)::varchar[] FROM public.texts WHERE id = $2',
       [xpathQuery, id]
     )
-    console.log(rows[0].xpath)
-    return rows[0].xpath
+    const xml = rows[0].xpath
+    if (xml.length) {
+      const stringifiedResponse = JSON.stringify(xml)
+      await TextQuery.create(id, xpathQuery, stringifiedResponse)
+      return xml
+    }
+    return null
   },
   async delete(id) {
     await db.query(sql`
