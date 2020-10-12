@@ -1,0 +1,30 @@
+div[type="textpart"] {
+  font-family: $font-body;
+}
+
+div[subtype="poem"] {
+  font-family: $font-body;
+  margin: 2rem 0;
+}
+
+l {
+  display: block;
+  font-family: $font-body;
+  &[rend="indent"] {
+    padding-left: 1rem;
+  }
+}
+
+// div[subtype="poem"][n="1"] {
+//   margin-top: 3rem;
+//   position: relative;
+//   ::before {
+//     color: $color-primary-1-1;
+//     content: 'Poem 1';
+//     font-family: $font-header;
+//     left: -0.5rem;
+//     font-size: 1.5rem;
+//     position: absolute;
+//     top: -2rem;
+//   }
+// }
