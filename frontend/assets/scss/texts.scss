@@ -10,21 +10,22 @@ div[subtype="poem"] {
 l {
   display: block;
   font-family: $font-body;
+  position: relative;
   &[rend="indent"] {
     padding-left: 1rem;
   }
 }
 
-// div[subtype="poem"][n="1"] {
-//   margin-top: 3rem;
-//   position: relative;
-//   ::before {
-//     color: $color-primary-1-1;
-//     content: 'Poem 1';
-//     font-family: $font-header;
-//     left: -0.5rem;
-//     font-size: 1.5rem;
+milestone[ed="P"][unit="para"] {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+// @for $line-number from 1 through 2000 {
+//   l[n="#{$line-number}"]::before {
+//     content: '#{$line-number}';
+//     left: -1rem;
 //     position: absolute;
-//     top: -2rem;
+//     top: 0;
 //   }
 // }

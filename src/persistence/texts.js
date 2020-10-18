@@ -6,10 +6,10 @@ const TextQuery = require('./text_queries')
 
 module.exports = {
   async find_or_create(author_id, title, display_title, body) {
-    if (!author_id || !title || !display_title || !body) {
-      return null
-    }
-    const existingText = await this.search(author_id, title)
+    if (!author_id || !title || !display_title || !body) return null
+    const author = await Author.find(author_id)
+    if (!author) return null
+    const existingText = await this.search(author.name, title)
     if (existingText) return existingText.id
     const id = uuid()
     await db.query(sql`

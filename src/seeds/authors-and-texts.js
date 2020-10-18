@@ -3,30 +3,45 @@ const XMLSerializer = require('xmlserializer')
 const Author = require('../persistence/authors')
 const Text = require('../persistence/texts')
 
+const AUTHORS = {
+  ovid: { name: 'ovid', fullName: 'Publius Ovidius Naso' },
+  vergil: { name: 'vergil', fullName: 'Publius Vergilius Maro' },
+}
+
+const METADATA = [
+  {
+    author: { name: AUTHORS.ovid.name, fullName: AUTHORS.ovid.fullName },
+    text: { title: 'amores', fullTitle: 'Amores' }
+  },
+  {
+    author: { name: AUTHORS.ovid.name, fullName: AUTHORS.ovid.fullName },
+    text: { title: 'metamorphoses', fullTitle: 'Metamorphoses' }
+  },
+  {
+    author: { name: AUTHORS.vergil.name, fullName: AUTHORS.vergil.fullName },
+    text: { title: 'aeneid', fullTitle: 'Aeneid' }
+  }
+]
+
 module.exports = {
-  ovid: {
-    async amores() {
+  async init() {
+    METADATA.forEach(async data => {
       try {
-        const author_id = await Author.find_or_create('ovid', 'Publius Ovidius Naso')
-        fs.readFile(
-          __dirname + `/../lib/latin-texts/ovid/amores.xml`,
-          'utf8',
-          async function(err, xml) {
-            if (err) {
-              console.log(err)
-              return
-            }
-            try {
-              await Text.find_or_create(author_id, 'amores', 'Amores', xml)
-              process.stdout.write('.')
-            } catch(error) {
-              console.log(error)
-            }
+        const authorId = await Author.find_or_create(data.author.name, data.author.fullName)
+        const fileName =   __dirname + `/../lib/latin-texts/${data.author.name}/${data.text.title}.xml`
+        const callback = async function(err, xml) {
+          if (err) throw new Error(err)
+          try {
+            await Text.find_or_create(authorId, data.text.title, data.text.fullTitle, xml)
+            process.stdout.write('.')
+          } catch(error) {
+            throw new Error(error)
           }
-        )
+        }
+        fs.readFile(fileName, 'utf8', callback)
       } catch(error) {
         console.log(error)
       }
-    },
+    })
   },
 }

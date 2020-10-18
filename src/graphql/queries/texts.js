@@ -3,24 +3,23 @@ const { GraphQLList, GraphQLString } = graphql
 const TextType = require('../types/text_type')
 const Text = require('../../persistence/texts')
 
-const AUTHORS = ['ovid']
-const TITLES = ['amores']
+const AUTHORS = ['ovid', 'vergil']
+const TITLES = ['amores', 'metamorphoses']
+
+const VALID_TEXTS = {
+  ovid: ['amores', 'metamorphoses'],
+  vergil: ['aeneid']
+}
 
 const inputGuard = function(author, title, book, poem) {
-  const poemIsLegitimate =
+  const poemFormatIsLegitimate =
     poem == null || poem == 'ep' || parseInt(poem)
-  const bookIsLegitimate =
+  const bookFormatIsLegitimate =
     book == null || parseInt(book)
-  const titleIsLegitimate = TITLES.includes(title)
-  const authorIsLegitimate = AUTHORS.includes(author)
-  console.log(poemIsLegitimate)
-  console.log(bookIsLegitimate)
-  console.log(titleIsLegitimate)
-  console.log(authorIsLegitimate)
-  return poemIsLegitimate &&
-         bookIsLegitimate &&
-         titleIsLegitimate &&
-         authorIsLegitimate
+  return poemFormatIsLegitimate &&
+         bookFormatIsLegitimate &&
+         !!VALID_TEXTS[author] &&
+         VALID_TEXTS[author].includes(title)
 }
 
 const Texts = {
