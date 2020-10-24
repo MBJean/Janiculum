@@ -3,10 +3,11 @@ const { GraphQLList, GraphQLString } = graphql
 const TextType = require('../types/text_type')
 const Text = require('../../persistence/texts')
 
-const AUTHORS = ['ovid', 'vergil']
-const TITLES = ['amores', 'metamorphoses']
+const AUTHORS = ['cicero', 'ovid', 'vergil']
+const TITLES = ['in-catilinam', 'amores', 'metamorphoses']
 
 const VALID_TEXTS = {
+  cicero: ['in-catilinam'],
   ovid: ['amores', 'metamorphoses'],
   vergil: ['aeneid']
 }
@@ -29,8 +30,11 @@ const Texts = {
     title: { type: GraphQLString },
     book: { type: GraphQLString },
     poem: { type: GraphQLString },
+    speech: { type: GraphQLString },
+    section: { type: GraphQLString },
+    chapter: { type: GraphQLString },
   },
-  resolve: async (source, { author, title, book, poem }) => {
+  resolve: async (source, { author, title, book, poem, speech, section, chapter }) => {
     const isInputSafe = inputGuard(author, title, book, poem)
     if (!isInputSafe) return {
       xml: null, errors: ['input guard']
@@ -50,6 +54,15 @@ const Texts = {
       if (poem) {
         query += `/div[@type=\"textpart\" and @subtype=\"poem\" and @n=\"${poem}\"]`
       }
+      if (speech) {
+        query += `div[@type=\"textpart\" and @subtype=\"speech\" and @n=\"${speech}\"]`
+      }
+      if (section) {
+        query += `/div[@type=\"textpart\" and @subtype=\"section\" and @n=\"${section}\"]`
+      }
+      if (chapter) {
+        query += `/div[@type=\"textpart\" and @subtype=\"chapter\" and @n=\"${chapter}\"]`
+      }
       const response = await Text.query(text.id, query)
       if (!response) {
         return {
@@ -62,6 +75,7 @@ const Texts = {
         errors: null,
       }
     } catch(error) {
+      console.log(error)
       return {
         xml: null,
         errors: ['unknown error']

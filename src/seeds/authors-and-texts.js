@@ -4,6 +4,7 @@ const Author = require('../persistence/authors')
 const Text = require('../persistence/texts')
 
 const AUTHORS = {
+  cicero: { name: 'cicero', fullName: 'Marcus Tullius Cicero' },
   ovid: { name: 'ovid', fullName: 'Publius Ovidius Naso' },
   vergil: { name: 'vergil', fullName: 'Publius Vergilius Maro' },
 }
@@ -20,7 +21,11 @@ const METADATA = [
   {
     author: { name: AUTHORS.vergil.name, fullName: AUTHORS.vergil.fullName },
     text: { title: 'aeneid', fullTitle: 'Aeneid' }
-  }
+  },
+  {
+    author: { name: AUTHORS.cicero.name, fullName: AUTHORS.cicero.fullName },
+    text: { title: 'in-catilinam', fullTitle: 'In Catilinam' }
+  },
 ]
 
 module.exports = {

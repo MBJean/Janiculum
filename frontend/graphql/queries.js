@@ -7,12 +7,18 @@ export default {
       $title: String!
       $book: String
       $poem: String
+      $speech: String
+      $chapter: String
+      $section: String
     ) {
     	texts(
         author: $author
         title: $title
         book: $book
         poem: $poem
+        speech: $speech
+        chapter: $chapter
+        section: $section
       ) {
         xml
         errors

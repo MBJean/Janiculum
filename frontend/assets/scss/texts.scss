@@ -10,9 +10,17 @@ div[subtype="poem"] {
 l {
   display: block;
   font-family: $font-body;
+  font-size: 1rem;
+  padding-left: 0.5rem;
   position: relative;
   &[rend="indent"] {
     padding-left: 1rem;
+  }
+  @include min-breakpoint(tablet) {
+    font-size: 1.25rem;
+    &[rend="indent"] {
+      padding-left: 1.5rem;
+    }
   }
 }
 
@@ -21,11 +29,28 @@ milestone[ed="P"][unit="para"] {
   margin-bottom: 1rem;
 }
 
-// @for $line-number from 1 through 2000 {
-//   l[n="#{$line-number}"]::before {
-//     content: '#{$line-number}';
-//     left: -1rem;
-//     position: absolute;
-//     top: 0;
-//   }
-// }
+note {
+  display: none;
+}
+
+choice {
+  expan {
+    display: none;
+  }
+}
+
+@for $line-number from 1 through 2000 {
+  @if $line-number % 10 == 0 {
+    l[n="#{$line-number}"]::before {
+      color: $color-primary-3-3;
+      content: '#{$line-number}';
+      font-size: 1rem;
+      left: -0.9rem;
+      position: absolute;
+      top: 0;
+      @include min-breakpoint(tablet) {
+        top: 0.25rem;
+      }
+    }
+  }
+}

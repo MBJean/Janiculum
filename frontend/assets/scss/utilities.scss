@@ -6,6 +6,14 @@
   text-align: right;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex--apart {
+  justify-content: space-between;
+}
+
 .text--overflow {
   max-width: 100%;
   overflow-x: hidden;
@@ -17,7 +25,7 @@
   font-weight: $font-weight-bold;
 }
 
-.cursor__pointer {
+.cursor--pointer {
   cursor: pointer;
 }
 

@@ -35,7 +35,6 @@ module.exports = {
   async query(id, xpathQuery) {
     const existingQuery = await TextQuery.search(id, xpathQuery)
     if (existingQuery) {
-      console.log('=== returning existing query ===')
       return existingQuery.response
     }
     const { rows } = await db.query(
@@ -45,10 +44,8 @@ module.exports = {
     const stringifiedXml = rows[0].xpath[0]
     if (stringifiedXml) {
       await TextQuery.create(id, xpathQuery, stringifiedXml)
-      console.log('=== returning new query ===')
       return stringifiedXml
     }
-    console.log('=== no match ===')
     return null
   },
   async delete(id) {
