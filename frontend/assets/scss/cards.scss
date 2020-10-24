@@ -1,7 +1,19 @@
 .card {
   background-color: $color-primary-1-4;
   box-shadow: $box-shadow-standard;
-  padding: $spacer-1;
+  padding: $spacer-half;
+  @include min-breakpoint(tablet) {
+    padding: $spacer-1;
+  }
+}
+
+.card--full-mobile {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  @include min-breakpoint(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 .card--purple {
@@ -22,4 +34,8 @@
 
 .card--grey {
   background-color: $color-primary-3-4;
+}
+
+.card--white {
+  background-color: $color-white;
 }

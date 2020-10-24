@@ -6,6 +6,14 @@
   text-align: right;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex--apart {
+  justify-content: space-between;
+}
+
 .text--overflow {
   max-width: 100%;
   overflow-x: hidden;
@@ -17,10 +25,22 @@
   font-weight: $font-weight-bold;
 }
 
-.cursor__pointer {
+.cursor--pointer {
   cursor: pointer;
 }
 
 .margin__right--quarter {
   margin-right: 0.25rem
+}
+
+.margin__top--none {
+  margin-top: 0;
+}
+
+.margin__top--1 {
+  margin-top: 1rem;
+}
+
+.margin__bottom--none {
+  margin-bottom: 0;
 }

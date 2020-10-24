@@ -75,3 +75,13 @@ node -e 'require("./src/seeds/dictionary.js").init("_a.xml")'
 once for each letterset (i.e., replacing `_a.xml` with each letter as found in `src/lib/latin-dictionary`).
 
 To migrate and seed the production, run `heroku run bash -a APP_NAME` followed by the above.
+
+## Notes about working with Latin texts
+Here are some tips on working with the specific XML texts we have:
+
+**In order to ensure our texts can be queried successfully using postgres XPATH queries, make sure:**
+- that the top-level element is `<text>`.
+- that there are no `<gap>` elements without a closing tag.
+
+**In order to ensure that Vue can render our texts via the `v-html` directive, make sure:**
+- that there are no self-terminating elements (i.e., replace `<milestone />` with `<milestone></milestone>`).

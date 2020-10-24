@@ -20,18 +20,20 @@ a, .a {
 h1, .h--1 {
   font-size: $font-size-2;
   line-height: 1.1;
-  margin-bottom: $spacer-3;
+  margin-bottom: $spacer-2;
   @include min-breakpoint(tablet) {
     font-size: $font-size-1;
+    margin-bottom: $spacer-3;
   }
 }
 
 h2, .h--2 {
   font-size: $font-size-3;
   line-height: 1.2;
-  margin: $spacer-2 0;
+  margin: $spacer-1 0;
   @include min-breakpoint(tablet) {
     font-size: $font-size-2;
+    margin: $spacer-2 0;
   }
 }
 
@@ -44,10 +46,15 @@ h3, .h--3 {
   }
 }
 
-p, .p {
+p, .p, l {
+  display: block;
   font-size: $font-size-4;
   line-height: 1.4;
   margin-bottom: $spacer-1;
+}
+
+l {
+  margin-bottom: 0;
 }
 
 a, .a {
