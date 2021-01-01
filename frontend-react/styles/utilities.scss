@@ -1,0 +1,26 @@
+.align--center {
+  text-align: center;
+}
+
+.align--right {
+  text-align: right;
+}
+
+.text--overflow {
+  max-width: 100%;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.font--bold {
+  font-weight: $font-weight-bold;
+}
+
+.cursor__pointer {
+  cursor: pointer;
+}
+
+.margin__right--quarter {
+  margin-right: 0.25rem
+}
