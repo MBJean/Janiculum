@@ -9,6 +9,8 @@
     "export": "next export"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.6",
+    "graphql": "^15.4.0",
     "next": "^10.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
