@@ -1,0 +1,31 @@
+.nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.list {
+  align-items: center;
+  display: flex;
+}
+
+.list-item {
+  margin: 0;
+}
+
+.list-item:last-child {
+  margin-right: 0;
+}
+
+.logo {
+  height: 3rem;
+  width: auto;
+}
+
+.spacer {
+  display: none;
+}
+
+.toggle-text {
+  display: none;
+}
