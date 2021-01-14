@@ -9,6 +9,7 @@ RUN npm install
 COPY . .
 
 RUN cd frontend && npm install && npm run generate
+RUN cd frontend-react && npm install && npm run build
 
 EXPOSE 8000
 

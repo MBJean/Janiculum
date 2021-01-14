@@ -1,0 +1,21 @@
+FROM node:10
+
+WORKDIR /app
+
+COPY ./frontend-react/package*.json ./
+RUN npm install
+
+# Copying source files
+COPY ./frontend-react .
+
+RUN npm run build
+
+# expose 8002 on container
+EXPOSE 8002
+
+# set app serving to permissive / assigned
+ENV NEXT_HOST=0.0.0.0
+# set app port
+ENV NEXT_PORT=8002
+
+CMD [ "npm", "run", "dev" ]
